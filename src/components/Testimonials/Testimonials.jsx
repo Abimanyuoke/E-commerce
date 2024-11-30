@@ -1,9 +1,9 @@
 import React from 'react'
 import Slider from 'react-slick';
-import Img1 from "../../assets/test/man1.jpeg";
-import Img2 from "../../assets/test/women1.jpeg";
-import Img3 from "../../assets/test/women2.jpeg";
-import Img4 from "../../assets/test/man2.jpeg";
+import Img1 from "../../assets/test/man1.png";
+import Img2 from "../../assets/test/women1.png";
+import Img3 from "../../assets/test/women2.png";
+import Img4 from "../../assets/test/man2.png";
 
 const TestimonialData = [
     {
@@ -95,7 +95,7 @@ const Testimonials = () => {
                                 <div className='flex flex-col items-center gap-4'>
                                     <div className='space-y-3'>
                                     <p className='tedxt-xs text-gray-500'>{data.text}</p>
-                                    <h1 className='text-xl font-bold text-black/80 dark:text-light'>{data.name}</h1>
+                                    <h1 className='text-xl font-bold text-black/80'>{data.name}</h1>
                                     </div>
                                 </div>
                                 <p className='text-black/20 text-9xl font-serif absolute top-0 right-0'>,,</p>
