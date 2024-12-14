@@ -16,7 +16,10 @@ export default {
         padding: {
           DEFAULT: '1rem',
           sm: '3rem',
-        }
+        },
+      },
+      backdropBlur: {
+        abim: "2px" 
       }
     },
   },
