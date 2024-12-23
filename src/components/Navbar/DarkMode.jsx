@@ -21,8 +21,8 @@ const DarkMode = () => {
 
   return (
     <div className='relative'>
-      <img src={LightPng} alt="" onClick = {() => setTheme(theme == "light" ? "dark" : "light")} className={`w-12 cursor-pointer drop-shado-w[1px_1px_1px_rgba(0,0,0,0.1)] transision-all duration-300 absolute right-0 z-10 ${theme == "dark" ? "opacity-0" : "opacity-100"} `}/>
-      <img src={DarkPng} alt="" onClick = {() => setTheme(theme == "light" ? "dark" : "light")}className='w-12 h-5 cursor-pointer drop-shado-w[1px_1px_1px_rgba(0,0,0,0.1)] transision-all duration-300' />
+      <img src={LightPng} alt="" onClick = {() => setTheme(theme == "light" ? "dark" : "light")} className={`w-12 cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.1)] transision-all duration-300 absolute right-0 z-10 ${theme == "dark" ? "opacity-0" : "opacity-100"} `}/>
+      <img src={DarkPng} alt="" onClick = {() => setTheme(theme == "light" ? "dark" : "light")}className='w-12 h-5 cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.1)] transision-all duration-300' />
     </div>
   )
 }
