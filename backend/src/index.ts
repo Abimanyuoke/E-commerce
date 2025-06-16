@@ -3,10 +3,10 @@ import cors from 'cors'
 import swaggerJsDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import path from 'path'
-import MenuRoute from './routers/menuRoute'
+// import MenuRoute from './routers/menuRoute'
 import UserRoute from './routers/userRoute'
-import OrderRoute from './routers/orderRoute'
-import ReportRoute from './routers/reportRoute'
+// import OrderRoute from './routers/orderRoute'
+// import ReportRoute from './routers/reportRoute'
 
 import { PORT } from './global'
 
@@ -44,10 +44,10 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
-app.use(`/menu`, MenuRoute)
+// app.use(`/menu`, MenuRoute)
 app.use(`/user`, UserRoute)
-app.use(`/order`, OrderRoute)
-app.use(`/report`, ReportRoute)
+// app.use(`/order`, OrderRoute)
+// app.use(`/report`, ReportRoute)
 
 // Set public folder as static
 app.use(express.static(path.join(__dirname, '..', 'public')));
