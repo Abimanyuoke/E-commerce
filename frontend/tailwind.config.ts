@@ -1,15 +1,17 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+// import type { Config } from 'tailwindcss'
+
+const config = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    './app/**/*.{ts,tsx}',         
+    './pages/**/*.{ts,tsx}',       
+    './components/**/*.{ts,tsx}', 
   ],
-  darkMode: "class",
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         primary: '#fea928',
-        secondary: '#ed8900'
+        secondary: '#ed8900',
       },
       container: {
         center: true,
@@ -19,10 +21,11 @@ export default {
         },
       },
       backdropBlur: {
-        abim: "2px" 
-      }
+        abim: '2px',
+      },
     },
   },
   plugins: [],
 }
 
+export default config
