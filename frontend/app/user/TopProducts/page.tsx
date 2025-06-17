@@ -1,7 +1,7 @@
 import React from 'react'
-import Img1 from "../../assets/shirt/shirt.png"
-import Img2 from "../../assets/shirt/shirt2.png"
-import Img3 from "../../assets/shirt/shirt3.png"
+import Img1 from "../../../public/shirt/shirt.png"
+import Img2 from "../../../public/shirt/shirt2.png"
+import Img3 from "../../../public/shirt/shirt3.png"
 import { FaStar } from 'react-icons/fa6'
 
 

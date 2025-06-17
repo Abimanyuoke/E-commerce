@@ -1,9 +1,9 @@
 import React from 'react';
-import Img1 from "../../assets/women/1.jpg";
-import Img2 from "../../assets/women/2.jpeg";
-import Img3 from "../../assets/women/3.jpeg";
-import Img4 from "../../assets/women/4.jpeg";
-import Img5 from "../../assets/women/5.jpeg";
+import Img1 from "../../../public/women/1.jpg";
+import Img2 from "../../../public/women/2.jpeg";
+import Img3 from "../../../public/women/3.jpeg";
+import Img4 from "../../../public/women/4.jpeg";
+import Img5 from "../../../public/women/5.jpeg";
 import { FaStar } from 'react-icons/fa6';
 
 const ProductsData = [

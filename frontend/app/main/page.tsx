@@ -1,4 +1,5 @@
-import React from 'react'
+"use client";
+import React from 'react';
 import Navbar from '../user/Navbar/page';
 import Hero from '../user/Hero/page';
 import Products from '../user/Products/page';

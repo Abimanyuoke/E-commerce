@@ -1,9 +1,9 @@
 import React from 'react'
 import Slider from 'react-slick';
-import Img1 from "../../assets/test/man1.png";
-import Img2 from "../../assets/test/women1.png";
-import Img3 from "../../assets/test/women2.png";
-import Img4 from "../../assets/test/man2.png";
+import Img1 from "../../../public/test/man1.png";
+import Img2 from "../../../public/test/women1.png";
+import Img3 from "../../../public/test/women2.png";
+import Img4 from "../../../public/test/man2.png";
 
 const TestimonialData = [
     {

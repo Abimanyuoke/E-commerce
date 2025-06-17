@@ -1,6 +1,6 @@
 import React from 'react'
-import footerLogo from "../../assets/logo.png";
-import Banner from "../../assets/website/footer-pattern.png";
+import footerLogo from "../../../public/logo.png";
+import Banner from "../../../public/website/footer-pattern.png";
 import { FaFacebook, FaInstagram, FaLinkedin, FaLocationArrow } from 'react-icons/fa6';
 import { FaMobileAlt } from 'react-icons/fa';
 

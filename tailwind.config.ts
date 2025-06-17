@@ -5,6 +5,7 @@ const config = {
     './app/**/*.{ts,tsx}',         
     './pages/**/*.{ts,tsx}',       
     './components/**/*.{ts,tsx}', 
+    './main/**/*.{ts,tsx}', 
   ],
   darkMode: 'class',
   theme: {

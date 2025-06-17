@@ -1,5 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css"
+
+:root {
+  --color-primary: #fea928;
+  --color-secondary: #ed8900;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-12;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--color-primary)] text-white py-2 px-4 rounded-lg hover:bg-[var(--color-secondary)];
+  }
+
+  .backdrop-blur {
+    --tw-backdrop-blur: blur(2px);
+  }
+}
