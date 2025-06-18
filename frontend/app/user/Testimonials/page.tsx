@@ -35,11 +35,10 @@ const TestimonialData = [
 const Testimonials = () => {
 
     var settings = {
-        dots: true, 
+        dots: false, 
         arrows: false, 
         infinite: true,
         speed: 500,
-        // slideToShow: 2,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 2000,

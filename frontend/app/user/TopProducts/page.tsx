@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react'
 import Img1 from "../../../public/shirt/shirt.png"
 import Img2 from "../../../public/shirt/shirt2.png"
@@ -48,7 +50,7 @@ const TopProducts: React.FC<TopProductsProps> = ({ handleOrderPopup }) => {
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center'>
                     {
                         Products.map((data) => (
-                            <div data-aos="zoom-in" className='rounded-2xl bg-white dark:hover:bg-primary dark:bg-gray-800 hover:bg-black/80 hover:text-white relative shadow-xl duration-300 group max-w-[300px]'>
+                            <div  key={data.id} data-aos="zoom-in" className='rounded-2xl bg-white dark:hover:bg-primary dark:bg-gray-800 hover:bg-black/80 hover:text-white relative shadow-xl duration-300 group max-w-[300px]'>
                                 {/* image sections */}
                                 <div className='h-[100px]'>
                                     <img src={data.img.src} alt="" className='max-w-[140px] mx-auto block transform -translate-y-20 group-hover:scale-105 duration-300 drop-shadow-md' />
