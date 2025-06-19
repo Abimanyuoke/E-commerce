@@ -1,16 +1,15 @@
 import React from 'react'
 import footerLogo from "../../../public/logo.png";
-import Banner from "../../../public/website/footer-pattern.png";
 import { FaFacebook, FaInstagram, FaLinkedin, FaLocationArrow } from 'react-icons/fa6';
 import { FaMobileAlt } from 'react-icons/fa';
 
 const BannerImg = {
-    backgroundImage: `url(${Banner})`,
+    backgroundImage: `url(/website/footer-pattern.png)`,
     backgroundPosition: "bottom",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     height: "100%",
-    widht: "100%",
+    width: "100%",
 };
 
 const FooterLinks = [
@@ -42,7 +41,7 @@ const Footer = () => {
                     <h1 className='sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3'>
                     <img src={footerLogo.src} alt="" className='max-w-[50px] '/> Shopsy
                     </h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ea modi corporis doloremque, iure dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum nam vitae facilis fugiat itaque asperiores accusamus dicta magnam perferendis consectetur?</p>
                 </div>
 
                 {/* Footer Links */}
