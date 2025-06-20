@@ -25,6 +25,9 @@ module.exports = {
       backdropBlur: {
         abim: '2px',
       },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
     },
   },
   plugins: [],
