@@ -65,18 +65,18 @@ export default function SignUp() {
         }
     }
     return (
-        <div className="bg-cyan-50 h-screen w-full relative overflow-hidden">
-            <svg viewBox="0 50 200 200" className="absolute -right-42 w-[500px]" xmlns="http://www.w3.org/2000/svg">
+        <div className="bg-cyan-50 h-screen w-full relative overflow-hidden font-poppins">
+            <svg viewBox="0 50 200 200" className="absolute -right-44 w-[500px]" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#05B6D3" d="M44,-72C56.5,-69,65.6,-56.1,65.7,-42.4C65.9,-28.8,56.9,-14.4,49.2,-4.5C41.4,5.4,34.9,10.9,32.5,20.6C30.1,30.3,31.9,44.3,27.1,53.7C22.4,63.2,11.2,68.1,-2.1,71.8C-15.5,75.5,-31,78.1,-42.1,72.3C-53.2,66.5,-59.9,52.5,-64,39.1C-68.2,25.6,-69.8,12.8,-62.8,4C-55.8,-4.7,-40.2,-9.5,-35.4,-21.7C-30.5,-33.9,-36.4,-53.5,-32.3,-61.4C-28.2,-69.2,-14.1,-65.3,0.8,-66.8C15.8,-68.2,31.5,-75.1,44,-72Z" transform="translate(100 100)" />
             </svg>
             <svg viewBox="0 0 200 200" className="absolute -bottom-[300px] w-[600px]" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#BAE6FF" d="M37,-42.5C44.8,-29.1,45.9,-14.6,44.4,-1.5C42.9,11.6,38.8,23.1,30.9,30.5C23.1,37.9,11.6,41.2,-5.4,46.6C-22.4,52,-44.7,59.5,-54.4,52.1C-64.2,44.7,-61.3,22.4,-59,2.3C-56.7,-17.8,-55.1,-35.6,-45.3,-48.9C-35.6,-62.3,-17.8,-71.2,-1.6,-69.6C14.6,-68,29.1,-55.8,37,-42.5Z" transform="translate(100 100)" />
             </svg>
-            <div className="w-full flex justify-center relative">
-                <div className="absolute flex items-center top-10">
+            <div className="w-full h-full flex justify-center items-center relative">
+                <div className="absolute flex items-center">
                     <div className="relative">
                         <Image src={imgSignup} alt="Image Login" height={600} width={600} className="bg-cover rounded-l-lg" />
-                        <span className="absolute bg-black opacity-50 inset-0 rounded-lg">{''}</span>
+                        <span className="absolute bottom-0 w-full h-[200px] bg-gradient-to-t opacity-30 from-black via via-black to-transparent">{""}</span>
                         <div className="absolute bottom-0 text-white space-y-2 p-4">
                             <h4 className="text-5xl font-semibold leading-[58px]">
                                 Join the <br /> Adventure
@@ -84,7 +84,7 @@ export default function SignUp() {
                             <p className="text-[15px] text-white leading-6 pr-7 mt-4">Create an account to start documenting your travels and preserving your memories in your personal travel journal.</p>
                         </div>
                     </div>
-                    <div className="w-3/5 h-[550px] p-10 bg-white rounded-r-lg relative">
+                    <div className="w-3/5 h-[580px] p-10 bg-white rounded-r-lg relative">
                         <h1 className="text-2xl font-semibold mb-7">
                             SignUp
                         </h1>
@@ -105,7 +105,7 @@ export default function SignUp() {
                                 <InputGroupComponent id={`password`} type={showPassword ? `text` : `password`} value={user.password}
                                     onChange={val => setUser({ ...user, password: val })}
                                     required={true} label="Password" placeholder="Password" className="pl-5" />
-                                <div className="cursor-pointer rounded-r-md p-3 absolute right-0" onClick={() => setShowPassword(!showPassword)}>
+                                <div className="cursor-pointer rounded-r-md absolute right-3 bottom-5" onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ?
                                         <IoEyeSharp className="text-[#8390A2] text-lg" /> :
                                         <HiEyeSlash className="text-[#8390A2] text-lg" />
@@ -113,15 +113,15 @@ export default function SignUp() {
                                 </div>
                             </div>
                             <FileInput acceptTypes={["application/pdf", "image/png", "image/jpeg", "image/jpg"]} id="profile_picture"
-                                label="Upload Picture" onChange={f => setFile(f)} required={false} />
+                                label="Upload Picture" onChange={f => setFile(f)} required={false}/>
 
                             <button
-                                type="submit" className="mt-3 text-sm font-medium bg-cyan-500 shadow-lg shadow-cyan-200/50 p-[10px] my-1 hover:bg-cyan-100 hover:text-primary  text-white py-2 rounded-full cursor-pointer uppercase">
+                                type="submit"  className="mt-3 uppercase text-sm font-semibold bg-[#fea928] shadow-lg  p-[10px] my-1 hover:text-white duration-200 transition-all  text-white py-2 rounded-full cursor-pointer">
                                 create account
                             </button>
                             <div className="flex flex-col justify-center text-center">
                                 <p className="text-xs text-slate-500 my-4">Or</p>
-                                <button onClick={() => { router.push("/auth/login") }} className=" text-sm uppercase bg-cyan-50 text-primary shadow-cyan-100 border border-cyan-100 hover:bg-primary hover:text-white rounded-full py-2 cursor-pointer">login</button>
+                                <button onClick={() => { router.push("/auth/login") }} className="uppercase text-sm bg-white text-primary shadow-cyan-100 border border-secondary hover:bg-secondary hover:text-white rounded-full py-2 cursor-pointer font-semibold duration-300 transition-colors">login</button>
                             </div>
                         </form>
                     </div>

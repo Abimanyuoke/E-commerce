@@ -10,7 +10,7 @@ export const middleware = async (request: NextRequest) => {
     // Jika pengguna mencoba mengakses halaman root, arahkan ke login
     if (request.nextUrl.pathname === "/") {
         const redirectAdmin = request.nextUrl.clone();
-        redirectAdmin.pathname = "/main";
+        redirectAdmin.pathname = "/auth/login";
         return NextResponse.redirect(redirectAdmin);
     }
 
@@ -19,14 +19,14 @@ export const middleware = async (request: NextRequest) => {
         // Jika tidak ada token atau role, arahkan ke halaman login
         if (!token || !role) {
             const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/login";
+            redirectAdmin.pathname = "/auth/login";
             return NextResponse.redirect(redirectAdmin);
         }
 
         // Jika role bukan MANAGER, arahkan ke halaman login
         if (role !== "MANAGER") {
             const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/login";
+            redirectAdmin.pathname = "/auth/login";
             return NextResponse.redirect(redirectAdmin);
         }
 
@@ -40,14 +40,14 @@ export const middleware = async (request: NextRequest) => {
         // Jika tidak ada token atau role, arahkan ke halaman login
         if (!token || !role) {
             const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/login";
+            redirectAdmin.pathname = "/auth/login";
             return NextResponse.redirect(redirectAdmin);
         }
 
         // Jika role bukan CASHIER, arahkan ke halaman login
         if (role !== "USER") {
             const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/login";
+            redirectAdmin.pathname = "/auth/login";
             return NextResponse.redirect(redirectAdmin);
         }
 

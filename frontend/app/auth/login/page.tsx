@@ -34,7 +34,7 @@ export default function Login() {
                     storeCookie("profile_picture", data.data.profile_picture || "")
                     let role = data.data.role
                     if (role === `MANAGER`) setTimeout(() => router.replace(`/manager/dashboard`), 1000)
-                    else if (role === `USER`) setTimeout(() => router.replace(`/user/home`), 1000)
+                    else if (role === `USER`) setTimeout(() => router.replace(`/main`), 1000)
                 }
             }
             else toast.warning(data.message, { duration: 2000 })
@@ -46,7 +46,7 @@ export default function Login() {
 
     return (
         <div className="bg-cyan-50 h-screen w-full relative overflow-hidden font-poppins">
-            <svg viewBox="0 50 200 200" className="absolute -right-42 w-[500px]" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 50 200 200" className="absolute -right-44 w-[500px]" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#fea928" d="M44,-72C56.5,-69,65.6,-56.1,65.7,-42.4C65.9,-28.8,56.9,-14.4,49.2,-4.5C41.4,5.4,34.9,10.9,32.5,20.6C30.1,30.3,31.9,44.3,27.1,53.7C22.4,63.2,11.2,68.1,-2.1,71.8C-15.5,75.5,-31,78.1,-42.1,72.3C-53.2,66.5,-59.9,52.5,-64,39.1C-68.2,25.6,-69.8,12.8,-62.8,4C-55.8,-4.7,-40.2,-9.5,-35.4,-21.7C-30.5,-33.9,-36.4,-53.5,-32.3,-61.4C-28.2,-69.2,-14.1,-65.3,0.8,-66.8C15.8,-68.2,31.5,-75.1,44,-72Z" transform="translate(100 100)" />
             </svg>
             <svg viewBox="0 0 200 200" className="absolute -bottom-[300px] w-[600px]" xmlns="http://www.w3.org/2000/svg">
@@ -86,12 +86,12 @@ export default function Login() {
                             </div>
 
                             <button
-                                type="submit" className="mt-3 text-sm font-semibold bg-[#fea928] shadow-lg  p-[10px] my-1 hover:text-white duration-200 transition-all  text-white py-2 rounded-full cursor-pointer">
-                                LOGIN
+                                type="submit" className="mt-3 uppercase text-sm font-semibold bg-[#fea928] shadow-lg  p-[10px] my-1 hover:text-white duration-200 transition-all  text-white py-2 rounded-full cursor-pointer">
+                                login
                             </button>
                             <div className="flex flex-col justify-center text-center">
                                 <p className="text-xs text-slate-500 my-4">Or</p>
-                                <button onClick={() => { router.push("/auth/signup") }} className="uppercase text-sm bg-cyan-50 text-primary shadow-cyan-100 border border-cyan-100 hover:bg-secondary hover:text-white rounded-full py-2 cursor-pointer font-semibold duration-300 transition-colors">create account</button>
+                                <button onClick={() => { router.push("/auth/signup") }} className="uppercase text-sm bg-white text-primary border border-secondary hover:bg-secondary hover:text-white rounded-full py-2 cursor-pointer font-semibold duration-300 transition-colors">create account</button>
                             </div>
                         </form>
                     </div>

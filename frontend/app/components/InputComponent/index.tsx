@@ -30,7 +30,7 @@ export const InputGroupComponent = ({ value, onChange, type, className, id, requ
     return (
         <div className="w-full flex flex-col gap-1 my-2">
             <strong className="text-xs font-bold text-slate-500">{label}{required == true ? <sup className="text-red-600">*&#41;</sup> : <></>}</strong>
-            <div className="w-full flex items-center gap-1 bg-white border-slate-500 rounded-md border">
+            <div className="w-full flex items-center gap-1 bg-white  rounded-md border">
                 {
                     children ?
                         <div className="px-2">
