@@ -70,12 +70,12 @@ export default function Login() {
                         </h1>
                         <form className="flex flex-col pt-5 gap-3" onSubmit={handleSubmit}>
                             <div className="flex w-full items-center rounded relative bg-cyan-600/5">
-                                <input type="email" placeholder="Email" className="pl-5 text-[#393e46] focus:outline-none py-3 text-sm w-full"
+                                <input type="email" placeholder="Email" className="pl-5 text-[#393e46] focus:outline-none py-3 text-sm w-full border rounded-md"
                                     onChange={e => setEmail(e.target.value)} id={`email`} />
                             </div>
 
                             <div className="flex w-full items-center bg-cyan-600/5 rounded relative">
-                                <input type={showPassword ? `text` : `password`} className="pl-5 text-[#393e46] rounded py-3 text-sm w-full focus:outline-none" value={password}
+                                <input type={showPassword ? `text` : `password`} className="pl-5 text-[#393e46] rounded-md py-3 text-sm w-full focus:outline-none border" value={password}
                                     onChange={e => setPassword(e.target.value)} placeholder="Password" id={`password`} />
                                 <div className="cursor-pointer rounded-r-md p-3 absolute right-0" onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ?
