@@ -79,9 +79,9 @@ export default function SignUp() {
                         <span className="absolute bottom-0 w-full h-[200px] bg-gradient-to-t opacity-30 from-black via via-black to-transparent">{""}</span>
                         <div className="absolute bottom-0 text-white space-y-2 p-4">
                             <h4 className="text-5xl font-semibold leading-[58px]">
-                                Join the <br /> Adventure
+                                Join the <br /> Adventure Shopping
                             </h4>
-                            <p className="text-[15px] text-white leading-6 pr-7 mt-4">Create an account to start documenting your travels and preserving your memories in your personal travel journal.</p>
+                            <p className="text-[15px] text-white leading-6 pr-7 mt-4">Create an account to start documenting your shoping.</p>
                         </div>
                     </div>
                     <div className="w-3/5 h-[580px] p-10 bg-white rounded-r-lg relative">

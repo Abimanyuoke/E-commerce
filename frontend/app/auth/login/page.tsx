@@ -61,7 +61,7 @@ export default function Login() {
                             <h4 className="text-5xl font-semibold leading-[58px]">
                                 Capture Your <br /> Journeys
                             </h4>
-                            <p className="text-[15px] text-white leading-6 pr-7 mt-4">Record your travel experience and memories in your personal travel journal.</p>
+                            <p className="text-[15px] text-white leading-6 pr-7 mt-4">Shop journals, accessories, and keepsakes made to help you capture moments that matter.</p>
                         </div>
                     </div>
                     <div className="w-3/5 h-[500px] p-10 bg-white rounded-r-lg relative">

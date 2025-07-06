@@ -78,7 +78,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleOrderPopup }) => {
                         </div>
 
                         {/* order button */}
-                        <button onClick={() => handleOrderPopup()} className='bg-gradient-to-r from-primary to-secondary transition-all duration-200 text-white items-center gap-3 group rounded-full flex px-4 py-1'>
+                        <button onClick={() => handleOrderPopup()} className='bg-gradient-to-r from-primary to-secondary transition-all duration-300 text-white items-center gap-3 group rounded-full flex px-4 py-1'>
                             <span className='group-hover:block hidden transision-all duration-700'>Order
                             </span>
                             <FaCartShopping className='text-xl text-white drop-shadow-sm cursor-pointer' />
