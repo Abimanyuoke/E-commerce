@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
         /** define location of uploaded picture, make sure that you have create a "public" folder in root folder.
          * then create folder "menu_picture" inside of "public folder"
          */
-        cb(null, `${BASE_URL}/public/menu_picture/`)
+        cb(null, `${BASE_URL}/public/product_picture/`)
     },
     filename: (request: Request, file: Express.Multer.File, cb: (error: Error | null, destination: string) => void) => {
         /** define file name of uploaded file */

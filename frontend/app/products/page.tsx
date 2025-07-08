@@ -1,13 +1,32 @@
-"use client";
+import ProductCard from '@/components/ProductCard'
+import { fetchProducts } from '@/libs/fetchProducts'
 
-import React from "react";
+interface Props {
+    searchParams: {
+        main?: string
+        sub?: string
+    }
+}
 
-export default function ProductsPage() {
+export default async function ProductsPage({ searchParams }: Props) {
+    const { main, sub } = searchParams
+    const products = await fetchProducts(main, sub)
 
     return (
-        <div className="">
-            <h1 className="text-center text-2xl font-bold mt-10">Products Page</h1>
-            <p className="text-center mt-4">This is the products page.</p>
+        <div className='container mx-auto px-6 py-10'>
+            <h1 className='text-2xl font-bold mb-6'>
+                Produk {main} {sub && `- ${sub.replaceAll("_", " ")}`}
+            </h1>
+
+            {products.length === 0 ? (
+                <p>Tidak ada produk ditemukan.</p>
+            ) : (
+                <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+                    {products.map((product: any) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
+            )}
         </div>
-    );
+    )
 }

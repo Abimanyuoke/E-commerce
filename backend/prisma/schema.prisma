@@ -12,17 +12,58 @@ enum Role {
   USER
 }
 
-enum Category {
-  BENIH_BIBIT           
-  PUPUK_PESTISIDA        
-  ALAT_PERLENGKAPAN      
-  TANAH_MEDIA_TANAM      
-  TANAMAN_HIAS
-  TANAMAN_BUAH
-  TANAMAN_SAYUR
-  TANAMAN_HERBAL
-  AKSESORIS_BERKEBUN     
-  PAKET_BERKEBUN
+enum MainCategory {
+  WANITA
+  PRIA
+  ANAK
+  SEPATU
+  TAS
+  SPORTS
+}
+
+enum SubCategory {
+  // WANITA
+  BLOUSE
+  DRESS
+  ROK
+  TUNIK
+  OUTER
+  HIJAB
+  SETELAN_FORMAL
+
+  // PRIA
+  KAOS
+  KEMEJA
+  CELANA
+  JAKET
+  BATIK
+  SWEATER
+
+  // ANAK
+  BAJU_ANAK
+  SETELAN_ANAK
+  KAOS_ANAK
+  CELANA_ANAK
+
+  // SEPATU
+  SEPATU_PRIA
+  SEPATU_WANITA
+  SNEAKERS
+  SEPATU_ANAK
+  SEPATU_OLAHRAGA
+
+  // TAS
+  TAS_PRIA
+  TAS_WANITA
+  RANSEL
+  SELEMPANG
+
+  // SPORTS
+  JERSEY
+  TRAINING
+  LEGGING
+  SPORT_BRA
+  CELANA_OLAHRAGA
 }
 
 
@@ -53,17 +94,19 @@ model User {
   Order Order[]
 }
 
-model Menu {
-  id          Int         @id @default(autoincrement())
-  uuid        String      @unique @default("")
-  name        String      @default("")
-  price       Int         @default(0)
-  category    Category    @default(BENIH_BIBIT)
-  picture     String      @default("")
-  description String      @db.Text
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  orderLists  OrderList[]
+model Product {
+  id           Int          @id @default(autoincrement())
+  uuid         String       @unique @default(uuid())
+  name         String       @default("")
+  price        Int          @default(0)
+  mainCategory MainCategory
+  subCategory  SubCategory
+  picture      String       @default("")
+  description  String       @db.Text
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  orderLists OrderList[]
 }
 
 model Order {
@@ -83,13 +126,15 @@ model Order {
 
 model OrderList {
   id        Int      @id @default(autoincrement())
-  uuid      String   @unique @default("")
+  uuid      String   @unique @default(uuid())
   quantity  Int      @default(0)
   note      String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Menu      Menu?    @relation(fields: [menuId], references: [id])
-  menuId    Int?
-  Order     Order?   @relation(fields: [orderId], references: [id])
-  orderId   Int?
+
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+
+  Order   Order? @relation(fields: [orderId], references: [id])
+  orderId Int?
 }
