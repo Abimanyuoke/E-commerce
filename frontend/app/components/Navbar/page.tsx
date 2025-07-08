@@ -58,7 +58,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ handleOrderPopup }) => {
     return (
-        <div className='shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 z-40'>
+        <div className='shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40'>
             {/* upper Navbar */}
             <div className='bg-primary/40 py-2'>
                 <div className='container flex justify-between items-center '>
@@ -106,11 +106,11 @@ const Navbar: React.FC<NavbarProps> = ({ handleOrderPopup }) => {
                                 <FaCaretDown className='transision-all duration-200 group-hover:rotate-180' />
                             </span>
                         </a>
-                        <div className='absolute z-[9999] hidden group-hover:block w-[150px] rounded-md bg-white p-2 text-black shadow-md'>
+                        <div className='absolute hidden group-hover:block w-[150px] rounded-md bg-white p-2 text-black dark:bg-gray-900 dark:text-white shadow-md'>
                             <ul>
                                 {DropdownLinks.map((data) =>
                                     <li key={data.id}>
-                                        <a href={data.link} className='inline-block rounded-md p-2 hover:bg-primary/20 '>{data.name}</a>
+                                        <a href={data.link} className='inline-block rounded-md p-2 hover:bg-primary/20 text-sm'>{data.name}</a>
                                     </li>
                                 )}
                             </ul>

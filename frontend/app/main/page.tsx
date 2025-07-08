@@ -1,16 +1,16 @@
 "use client";
 import React from 'react';
-import Navbar from '../components/Navbar/page';
-import Hero from '../components/Hero/page';
-import Products from '../components/Products/page';
+import Navbar from '../components/navbar/page';
+import Hero from '../components/hero/page';
+import Products from '../components/products/page';
 import AOS from "aos";
 import "aos/dist/aos.css"
-import TopProducts from '../components/TopProducts/page';
-import Banner from '../components/Banner/page';
-import Subscribe from '../components/Subscribe/page';
-import Testimonials from '../components/Testimonials/page';
-import Footer from '../components/Footer/page';
-import Popup from '../components/Popup/page';
+import TopProducts from '../components/topProducts/page';
+import Banner from '../components/banner/page';
+import Subscribe from '../components/subscribe/page';
+import Testimonials from '../components/testimonials/page';
+import Footer from '../components/footer/page';
+import Popup from '../components/popup/page';
 
 
 
