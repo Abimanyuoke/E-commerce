@@ -1,14 +1,14 @@
-export interface IMenu {
-    id: number,
-    uuid: string,
-    name: string,
-    price: number,
-    picture: string,
-    description: string,
-    category: string,
-    createdAt: string,
-    updatedAt: string
+export interface IProduct {
+    id: number;
+    uuid: string;
+    name: string;
+    price: number;
+    mainCategory: string;
+    subCategory: string;
+    description: string;
+    picture: string;
 }
+
 
 export interface IUser {
     id: number,
