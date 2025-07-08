@@ -122,7 +122,7 @@ const editDataSchema = Joi.object({
 })
 
 /** middleware validasi tambah produk */
-export const verifyAddMenu = (request: Request, response: Response, next: NextFunction) => {
+export const verifyAddProduct= (request: Request, response: Response, next: NextFunction) => {
     const { error } = addDataSchema.validate(request.body, { abortEarly: false })
     if (error) {
         return response.status(400).json({
@@ -134,7 +134,7 @@ export const verifyAddMenu = (request: Request, response: Response, next: NextFu
 }
 
 /** middleware validasi edit produk */
-export const verifyEditMenu = (request: Request, response: Response, next: NextFunction) => {
+export const verifyEditProduct = (request: Request, response: Response, next: NextFunction) => {
     const { error } = editDataSchema.validate(request.body, { abortEarly: false })
     if (error) {
         return response.status(400).json({
