@@ -13,11 +13,6 @@ type PropsLayout = {
 
 const RootLayout = ({ children }: PropsLayout) => {
 
-    const [orderPopup, setOrderPopup] = React.useState(false);
-    const handleOrderPopup = () => {
-        setOrderPopup(!orderPopup);
-    };
-
     React.useEffect(() => {
         AOS.init({
             offset: 100,
@@ -32,7 +27,6 @@ const RootLayout = ({ children }: PropsLayout) => {
     return (
         <div className='bg-white dark:bg-gray-900 dark:text-white duration-200'>
             <Toaster position="top-right" richColors/>
-            <Navbar_Products handleOrderPopup={handleOrderPopup} />
             {children}
         </div>
     )
