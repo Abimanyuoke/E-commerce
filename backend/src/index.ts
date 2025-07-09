@@ -3,7 +3,7 @@ import cors from 'cors'
 import swaggerJsDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import path from 'path'
-// import MenuRoute from './routers/menuRoute'
+import ProductRoute from './routers/productRoute'
 import UserRoute from './routers/userRoute'
 // import OrderRoute from './routers/orderRoute'
 // import ReportRoute from './routers/reportRoute'
@@ -44,7 +44,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
-// app.use(`/menu`, MenuRoute)
+app.use(`/product`, ProductRoute)
 app.use(`/user`, UserRoute)
 // app.use(`/order`, OrderRoute)
 // app.use(`/report`, ReportRoute)

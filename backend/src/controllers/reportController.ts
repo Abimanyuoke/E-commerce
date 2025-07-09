@@ -7,7 +7,7 @@ export const getDashboard = async (request: Request, response: Response): Promis
     try {
         /** process to get order, contains means search name or table number of customer's order based on sent keyword */
         const allUsers = await prisma.user.findMany()
-        const allMenus = await prisma.menu.findMany()
+        const allMenus = await prisma.product.findMany()
         const newOrders = await prisma.order.findMany({
             where: {
                 OR: [
@@ -43,7 +43,7 @@ export const getFavourite = async (request: Request, response: Response): Promis
         // Mengambil semua order list yang ada
         const orderLists = await prisma.orderList.findMany({
             include: {
-                Menu: true, // Mengambil informasi menu
+                Product: true, // Mengambil informasi menu
             },
         });
 
@@ -52,7 +52,7 @@ export const getFavourite = async (request: Request, response: Response): Promis
 
         // Menghitung jumlah pemesanan untuk setiap menu
         orderLists.forEach((orderList) => {
-            const menuName = orderList.Menu?.name;
+            const menuName = orderList.Product?.name;
             if (menuName) {
                 if (!menuCount[menuName]) {
                     menuCount[menuName] = 0; 

@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "../../../public/logo.png";
 import { IoMdSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
 import DarkMode from "."
+
 
 // const Menu = [
 //     {
@@ -128,7 +129,7 @@ import DarkMode from "."
 
 
 import Link from 'next/link'
-import { FaCaretDown } from 'react-icons/fa'
+import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
 
 const categoryList = [
   {
@@ -161,16 +162,20 @@ interface NavbarProps {
   handleOrderPopup: () => void;
 }
 
-
 const Navbar_Products: React.FC<NavbarProps> = ({ handleOrderPopup }) => {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  const toggleDropdown = (main: string) => {
+    setActiveDropdown(prev => (prev === main ? null : main));
+  }
+
   return (
     <div className='shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 z-40'>
       {/* upper Navbar */}
       <div className='bg-primary/40 py-2'>
         <div className='container flex justify-between items-center '>
           <div>
-            <a href="#" className='font-bold
-                text-2xl sm:text-3xl flex gap-2'>
+            <a href="#" className='font-bold text-2xl sm:text-3xl flex gap-2'>
               <img src={logo.src} alt="logo" className='w-10 uppercase' />
               Shopsy
             </a>
@@ -179,14 +184,20 @@ const Navbar_Products: React.FC<NavbarProps> = ({ handleOrderPopup }) => {
           {/* search bar */}
           <div className='flex justify-between items-center gap-4'>
             <div className='relative group hidden sm:block'>
-              <input type="text" placeholder='search' className='w-[200px] sm:w-[200px] group-hover:w-[300px] transition-all duration-300 pl-4 rounded-full border border-gray-300 px-2 py-1 focus:outline-none focus:border-2 focus:border-primary dark:border-gray-500 dark:bg-gray-800' />
+              <input
+                type="text"
+                placeholder='search'
+                className='w-[200px] group-hover:w-[300px] transition-all duration-300 pl-4 rounded-full border border-gray-300 px-2 py-1 focus:outline-none focus:border-2 focus:border-primary dark:border-gray-500 dark:bg-gray-800'
+              />
               <IoMdSearch className='text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3' />
             </div>
 
             {/* order button */}
-            <button onClick={() => handleOrderPopup()} className='bg-gradient-to-r from-primary to-secondary transition-all duration-300 text-white items-center gap-3 group rounded-full flex px-4 py-1'>
-              <span className='group-hover:block hidden transision-all duration-700'>Order
-              </span>
+            <button
+              onClick={() => handleOrderPopup()}
+              className='bg-gradient-to-r from-primary to-secondary transition-all duration-300 text-white items-center gap-3 group rounded-full flex px-4 py-1'
+            >
+              <span className='group-hover:block hidden transision-all duration-700'>Order</span>
               <FaCartShopping className='text-xl text-white drop-shadow-sm cursor-pointer' />
             </button>
 
@@ -197,25 +208,38 @@ const Navbar_Products: React.FC<NavbarProps> = ({ handleOrderPopup }) => {
           </div>
         </div>
       </div>
+
+      {/* lower Navbar */}
       <nav className='bg-white shadow-md py-3 px-6'>
-        <ul className='flex gap-6'>
+        <ul className='flex gap-6 relative'>
           {categoryList.map((cat, i) => (
-            <li key={i} className='relative group'>
-              <span className='flex items-center gap-1 cursor-pointer'>
+            <li key={i} className='relative'>
+              <button
+                onClick={() => toggleDropdown(cat.main)}
+                className='flex items-center gap-1 cursor-pointer transition-all'
+              >
                 {cat.main}
-                <FaCaretDown />
-              </span>
-              <div className='absolute left-0 top-full mt-2 hidden group-hover:block bg-white border shadow-lg rounded-md p-2 z-50'>
-                {cat.subs.map((sub, idx) => (
-                  <Link
-                    href={`/products?main=${cat.main}&sub=${sub}`}
-                    key={idx}
-                    className='block whitespace-nowrap px-4 py-2 hover:bg-gray-100 rounded-md text-sm'
-                  >
-                    {sub.replaceAll("_", " ")}
-                  </Link>
-                ))}
-              </div>
+                {activeDropdown === cat.main ? (
+                  <FaCaretUp className='transition-all duration-300' />
+                ) : (
+                  <FaCaretDown className='transition-all duration-300' />
+                )}
+              </button>
+
+              {/* Submenu */}
+              {activeDropdown === cat.main && (
+                <div className='absolute left-0 top-full mt-2 bg-white border shadow-lg rounded-md p-2 z-50 transition-all duration-300 animate-fade-in'>
+                  {cat.subs.map((sub, idx) => (
+                    <Link
+                      href={`/products?main=${cat.main}&sub=${sub}`}
+                      key={idx}
+                      className='block whitespace-nowrap px-4 py-2 hover:bg-gray-100 rounded-md text-sm'
+                    >
+                      {sub.replaceAll("_", " ")}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </li>
           ))}
         </ul>

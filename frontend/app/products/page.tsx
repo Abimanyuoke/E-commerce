@@ -78,7 +78,7 @@ const OrderPage = () => {
     const getMenu = async () => {
         try {
             const TOKEN = getCookies("token") || "";
-            const url = `${BASE_API_URL}/menu?search=${search}`;
+            const url = `${BASE_API_URL}/product?search=${search}`;
             const { data } = await get(url, TOKEN);
             if ((data as { status: boolean; data: IProduct[] }).status) {
                 setProduct((data as { status: boolean; data: IProduct[] }).data);
