@@ -2,17 +2,17 @@
 
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { IMenu, IOrder } from "@/app/types";
+import { IProduct, IOrder } from "@/app/types";
 import { getCookies } from "@/lib/client-cookies";
-import { BASE_API_URL, BASE_IMAGE_MENU } from "@/global";
+import { BASE_API_URL, BASE_IMAGE_PRODUCT } from "../global";
 import { get } from "@/lib/bridge";
-import { AlertToko } from "@/components/alert";
+import { AlertToko } from "../components/alert";
 import Image from "next/image";
-import { ButtonPrimary, ButtonDanger } from "@/components/button";
+import { ButtonPrimary, ButtonDanger } from "../components/button";
 import { TiShoppingCart } from "react-icons/ti";
 import { toast } from "sonner";
-import { InputGroupComponent, TextGroupComponent } from "@/components/InputComponent";
-import CardSelect from "@/components/card";
+import { InputGroupComponent, TextGroupComponent } from "../components/InputComponent";
+import CardSelect from "../components/card";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaTrashAlt } from "react-icons/fa";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
@@ -25,7 +25,7 @@ const OrderPage = () => {
     const router = useRouter();
 
     /** ---------- STATE ---------- */
-    const [menu, setMenu] = useState<IMenu[]>([]);
+    const [product, setProduct] = useState<IProduct[]>([]);
     const [loading, setLoading] = useState(true);
     const [orderQty, setOrderQty] = useState<{ [key: number]: number }>({});
     const [order, setOrder] = useState(false);
@@ -80,8 +80,8 @@ const OrderPage = () => {
             const TOKEN = getCookies("token") || "";
             const url = `${BASE_API_URL}/menu?search=${search}`;
             const { data } = await get(url, TOKEN);
-            if ((data as { status: boolean; data: IMenu[] }).status) {
-                setMenu((data as { status: boolean; data: IMenu[] }).data);
+            if ((data as { status: boolean; data: IProduct[] }).status) {
+                setProduct((data as { status: boolean; data: IProduct[] }).data);
             }
         } catch (error) {
             console.error("Error getmenu menu:", error);
@@ -129,7 +129,7 @@ const OrderPage = () => {
     };
 
     const totalTransaction = selectedOrderIds.reduce((total, orderId) => {
-        const menuItem = menu.find((item) => item.id === orderId);
+        const menuItem = product.find((item) => item.id === orderId);
         const qty = orderQty[orderId] || 0;
         return total + (menuItem ? qty * menuItem.price : 0);
     }, 0);
@@ -237,7 +237,7 @@ const OrderPage = () => {
                     {selectedOrderIds.length > 0 && (
                         <span className="absolute top-2 right-8 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
                             {selectedOrderIds.length}
-                        </span> 
+                        </span>
                     )}
                 </button>
             </div>
@@ -268,8 +268,8 @@ const OrderPage = () => {
                             key={cat}
                             onClick={() => setSelectedCategory(cat)}
                             className={`px-4 py-2 rounded-full text-sm font-semibold border transition ${selectedCategory === cat
-                                    ? "bg-green-600 text-white border-green-600"
-                                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                                ? "bg-green-600 text-white border-green-600"
+                                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
                                 }`}
                         >
                             {cat === "ALL"
@@ -285,15 +285,15 @@ const OrderPage = () => {
                 {/* ----------------- LIST PRODUCT ----------------- */}
                 {loading ? (
                     <p className="text-white">Loading...</p>
-                ) : menu.length === 0 ? (
+                ) : product.length === 0 ? (
                     <AlertToko title="Informasi">No data available</AlertToko>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 place-items-center gap-4 my-10 p-6 ">
-                        {menu
+                        {product
                             .filter(
                                 (data) =>
                                     selectedCategory === "ALL" ||
-                                    data.category === selectedCategory
+                                    data.mainCategory === selectedCategory
                             )
                             .map((data) => (
                                 <div
@@ -304,7 +304,7 @@ const OrderPage = () => {
                                         <Image
                                             width={300}
                                             height={300}
-                                            src={`${BASE_IMAGE_MENU}/${data.picture}`}
+                                            src={`${BASE_IMAGE_PRODUCT}/${data.picture}`}
                                             className="shadow-2xl object-cover bg-white w-[290px] h-[220px] rounded-t-lg"
                                             alt="preview"
                                             unoptimized
@@ -316,7 +316,7 @@ const OrderPage = () => {
                                                 <span className="font-bold">
                                                     Rp {data.price.toLocaleString()}
                                                 </span>
-                                                <div className="mt-2">{category(data.category)}</div>
+                                                <div className="mt-2">{category(data.mainCategory)}</div>
                                             </div>
                                             <ButtonPrimary
                                                 type="button"
@@ -351,7 +351,7 @@ const OrderPage = () => {
                                         </p>
                                     </div>
                                 ) : (
-                                    menu
+                                    product
                                         .filter((item) => selectedOrderIds.includes(item.id))
                                         .map((data) => {
                                             const qty = orderQty[data.id] || 0;
@@ -377,7 +377,7 @@ const OrderPage = () => {
                                                             <Image
                                                                 width={100}
                                                                 height={100}
-                                                                src={`${BASE_IMAGE_MENU}/${data.picture}`}
+                                                                src={`${BASE_IMAGE_PRODUCT}/${data.picture}`}
                                                                 className="rounded-lg"
                                                                 alt="preview"
                                                                 unoptimized
@@ -472,7 +472,7 @@ const OrderPage = () => {
                                             </h4>
                                             <ul className="text-sm">
                                                 {selectedOrderIds.map((orderId) => {
-                                                    const menuItem = menu.find(
+                                                    const menuItem = product.find(
                                                         (item) => item.id === orderId
                                                     );
                                                     if (!menuItem) return null;

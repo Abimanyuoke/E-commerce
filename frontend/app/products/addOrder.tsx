@@ -1,15 +1,15 @@
 "use client"
 
 import { IOrder } from "@/app/types"
-import { BASE_API_URL } from "@/global"
+import { BASE_API_URL } from "../global"
 import { getCookies } from "@/lib/client-cookies"
 import { useRouter } from "next/navigation"
 import { FormEvent, useRef, useState } from "react"
-import { toast, ToastContainer } from "react-toastify"
-import { ButtonPrimary, ButtonSuccess, ButtonDanger } from "@/components/button"
-import { InputGroupComponent } from "@/components/InputComponent"
-import Modal from "@/components/modal"
-import Select from "@/components/select"
+import { toast } from "sonner"
+import { ButtonPrimary, ButtonSuccess, ButtonDanger } from "../components/button"
+import { InputGroupComponent } from "../components/InputComponent"
+import Modal from "../components/modal"
+import Select from "../components/select"
 
 const AddOrder = ({ orderLists }: { orderLists: { id: number; qty: number }[] }) => {
     const [isShow, setIsShow] = useState<boolean>(false);
@@ -44,7 +44,7 @@ const AddOrder = ({ orderLists }: { orderLists: { id: number; qty: number }[] })
             console.log("id user", getCookies("id"))
     
             if (!userId) {
-                toast("User not found", { hideProgressBar: true, containerId: "toastOrder", type: "error" });
+                toast.error("User not found");
                 return;
             }
     
@@ -76,21 +76,20 @@ const AddOrder = ({ orderLists }: { orderLists: { id: number; qty: number }[] })
     
             if (data?.status) {
                 setIsShow(false);
-                toast(data?.message, { hideProgressBar: true, containerId: "toastOrder", type: "success" });
+                toast.success(data?.message,);
                 setTimeout(() => {router.refresh(), 1000});
             } else {
-                toast(data?.message, { hideProgressBar: true, containerId: "toastOrder", type: "warning" });
+                toast.warning(data?.message,);
             }
         } catch (error) {
             console.log(error);
-            toast("Something went wrong", { hideProgressBar: true, containerId: "toastOrder", type: "error" });
+            toast.error("Something went wrong",);
         }
     };
     
 
     return (
         <div>
-            <ToastContainer containerId={`toastOrder`} />
             <ButtonSuccess type="button" onClick={openModal}>
                 <div className="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
