@@ -165,8 +165,8 @@ export const getAllProducts = async (req: Request, res: Response) => {
     const products = await prisma.product.findMany({
       where: {
         name: { contains: search?.toString() || "" },
-        ...(mainCategory ? { mainCategory: mainCategory.toString() } : {}),
-        ...(subCategory ? { subCategory: subCategory.toString() } : {}),
+        ...(mainCategory ? { mainCategory: mainCategory as any } : {}),
+        ...(subCategory ? { subCategory: subCategory as any } : {}),
       },
     });
 

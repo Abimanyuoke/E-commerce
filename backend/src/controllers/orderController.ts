@@ -19,7 +19,7 @@ export const getAllOrders = async (request: Request, response: Response) => {
             include: { 
                 User: true,
                 orderLists: {
-                    include: { Menu: true }
+                    include: { Product: true }
                 }
             }
         })
@@ -53,7 +53,7 @@ export const createOrder = async (request: Request, response: Response) => {
         let total_price = 0
         for (let index = 0; index < orderlists.length; index++) {
             const { menuId } = orderlists[index]
-            const detailMenu = await prisma.menu.findFirst({
+            const detailMenu = await prisma.product.findFirst({
                 where: {
                     id: menuId
                 }
@@ -74,7 +74,7 @@ export const createOrder = async (request: Request, response: Response) => {
             const { menuId, quantity, note } = orderlists[index]
             await prisma.orderList.create({
                 data: {
-                    uuid, orderId: newOrder.id, menuId: Number(menuId), quantity: Number(quantity), note
+                    uuid, orderId: newOrder.id, productId: Number(menuId), quantity: Number(quantity), note
                 }
             })
         }
