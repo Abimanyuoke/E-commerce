@@ -116,8 +116,8 @@ const OrderPage = () => {
         }
     };
 
-    { /* Uncomment if you want to use the router for checkout redirection */ }
-    
+    { /*  */ }
+
         //     const handleAddToCart = (id: number) => {
         //     const updatedIds = [...selectedOrderIds, id];
         //     const uniqueIds = Array.from(new Set(updatedIds)); // avoid duplicates
