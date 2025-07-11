@@ -59,16 +59,6 @@ const Navbar_Products: React.FC<Props> = ({className}) => {
               <Search url={`/products`} search={""} />
               <IoMdSearch className='text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3' />
             </div>
-
-            {/* order button */}
-            <button
-              onClick={() => { }}
-              className='bg-gradient-to-r from-primary to-secondary transition-all duration-300 text-white items-center gap-3 group rounded-full flex px-4 py-1'
-            >
-              <span className='group-hover:block hidden transision-all duration-700'>Order</span>
-              <FaCartShopping className='text-xl text-white drop-shadow-sm cursor-pointer' />
-            </button>
-
             {/* DarkMode Switch */}
             <div>
               <DarkMode />

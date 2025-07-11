@@ -24,7 +24,7 @@ const RootLayout = ({ children }: PropsLayout) => {
 
 
     return (
-        <div className='bg-white dark:bg-gray-900 dark:text-white duration-200'>
+        <div className="h-svh">
             <Toaster position="top-right" richColors/>
             {children}
         </div>
