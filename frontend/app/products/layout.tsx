@@ -3,7 +3,6 @@
 import React from "react"
 import AOS from "aos";
 import "aos/dist/aos.css"
-import Navbar_Products from "../components/navbar_products/page";
 import { Toaster } from "sonner";
 
 
