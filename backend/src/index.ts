@@ -5,7 +5,7 @@ import swaggerUi from 'swagger-ui-express'
 import path from 'path'
 import ProductRoute from './routers/productRoute'
 import UserRoute from './routers/userRoute'
-// import OrderRoute from './routers/orderRoute'
+import OrderRoute from './routers/orderRoute'
 // import ReportRoute from './routers/reportRoute'
 
 import { PORT } from './global'
@@ -46,7 +46,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 app.use(`/product`, ProductRoute)
 app.use(`/user`, UserRoute)
-// app.use(`/order`, OrderRoute)
+app.use(`/order`, OrderRoute)
 // app.use(`/report`, ReportRoute)
 
 // Set public folder as static

@@ -13,11 +13,12 @@ type Props = {
     options: CardOption[];
     label?: string;
     required?: boolean;
+    className?: string;
 };
 
-const CardSelect = ({ value, onChange, options, label, required }: Props) => {
+const CardSelect = ({ value, onChange, options, label, required, className }: Props) => {
     return (
-        <div className="flex flex-col gap-2 my-3">
+        <div className={`flex flex-col gap-2 my-3 ${className}`} >
             {label && (
                 <label className="text-xs font-bold text-slate-500">
                     {label}
@@ -31,7 +32,7 @@ const CardSelect = ({ value, onChange, options, label, required }: Props) => {
                         key={option.value}
                         onClick={() => onChange(option.value)}
                         className={`flex-1 p-4 rounded-lg border text-sm font-semibold ${value === option.value
-                                ? "bg-[#2E8B57] text-white border-white"
+                                ? "bg-primary text-white border-white"
                                 : "bg-white text-gray-700 border-gray-300"
                             } hover:shadow-md transition`}
                     >

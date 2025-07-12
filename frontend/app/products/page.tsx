@@ -284,7 +284,7 @@ const OrderPage = () => {
                 <Navbar_Products />
             </div>
             {/* ----------------- CART BUTTON ----------------- */}
-            <div className="fixed z-50 right-0 pr-10 pt-4">
+            <div className="fixed z-30 right-0 pr-10 pt-4">
                 <button onClick={() => setOrder(true)}>
                     <div className="bg-black py-1 px-2 flex items-center justify-center rounded-md relative">
                         <TiShoppingCart className="text-2xl text-white" />
@@ -386,7 +386,7 @@ const OrderPage = () => {
                                                 src={`${BASE_IMAGE_PRODUCT}/${data.picture}`}
                                                 className="w-36 h-36 object-contain transform group-hover:scale-105 transition duration-300 drop-shadow-md"
                                                 alt="preview"
-                                                unoptimized/>
+                                                unoptimized />
                                         </div>
 
                                         {/* Konten dan Tombol */}
@@ -418,183 +418,170 @@ const OrderPage = () => {
                 {/* ----------------- MODAL CART ----------------- */}
                 {order && (
                     <div className="fixed bg-black/60 backdrop-blur-sm flex items-center justify-center inset-0 z-[9999]">
-                        <div className="relative bg-white shadow-lg p-6 rounded-xl w-[90%] max-w-8xl overflow-y-auto max-h-[90vh]">
-                            <form onSubmit={handleSubmit} ref={formRef}>
-                                {selectedOrderIds.length === 0 ? (
-                                    <div className="text-center text-gray-500 my-10">
-                                        <button
-                                            onClick={handleCart}
-                                            className="text-red-500 text-xl absolute top-5 right-5"
-                                        >
-                                            <IoIosCloseCircleOutline />
-                                        </button>
-                                        <p className="text-lg font-semibold">Keranjang Kosong</p>
-                                        <p className="text-sm">
-                                            Silakan tambahkan menu terlebih dahulu.
-                                        </p>
-                                    </div>
-                                ) : (
-                                    product
-                                        .filter((item) => selectedOrderIds.includes(item.id))
-                                        .map((data) => {
-                                            const qty = orderQty[data.id] || 0;
-                                            return (
-                                                <div key={data.id} className="mb-6 border-b pb-4">
-                                                    <div className="grid grid-cols-4 text-black font-bold gap-x-67 mb-2">
-                                                        <p>Product</p>
-                                                        <p>Nama</p>
-                                                        <p>Qty</p>
-                                                        <p>Total</p>
-                                                    </div>
-                                                    <div className="grid grid-cols-4 gap-x-67 items-center">
-                                                        <div className="flex items-center">
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    handleRemoveFromCart(data.id);
-                                                                }}
-                                                                className="text-red-500 text-lg mr-10"
-                                                            >
-                                                                <FaTrashAlt />
-                                                            </button>
+                        <div className="relative bg-white shadow-lg rounded-xl w-[90%] max-w-7xl max-h-[90vh] overflow-y-auto p-6">
+                            <button
+                                onClick={handleCart}
+                                className="text-red-500 text-2xl absolute top-4 right-4 z-10"
+                            >
+                                <IoIosCloseCircleOutline />
+                            </button>
+
+                            {selectedOrderIds.length === 0 ? (
+                                <div className="text-center text-gray-500 my-20">
+                                    <p className="text-lg font-semibold">Keranjang Kosong</p>
+                                    <p className="text-sm">Silakan tambahkan menu terlebih dahulu.</p>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleSubmit} ref={formRef}>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {/* === LEFT: Product Preview === */}
+                                        <div>
+                                            <h3 className="text-lg font-bold mb-4 text-gray-800">Produk dalam Keranjang</h3>
+                                            {product
+                                                .filter((item) => selectedOrderIds.includes(item.id))
+                                                .map((data) => {
+                                                    const qty = orderQty[data.id] || 0;
+                                                    return (
+                                                        <div
+                                                            key={data.id}
+                                                            className="flex items-start gap-4 border-b pb-4 mb-4"
+                                                        >
                                                             <Image
                                                                 width={100}
                                                                 height={100}
                                                                 src={`${BASE_IMAGE_PRODUCT}/${data.picture}`}
-                                                                className="rounded-lg"
-                                                                alt="preview"
+                                                                className="rounded-xl"
+                                                                alt={data.name}
                                                                 unoptimized
                                                             />
+                                                            <div className="flex-1">
+                                                                <div className="flex justify-between">
+                                                                    <h5 className="text-base font-bold">{data.name}</h5>
+                                                                    <button
+                                                                        onClick={(e) => {
+                                                                            e.preventDefault();
+                                                                            handleRemoveFromCart(data.id);
+                                                                        }}
+                                                                        className="text-red-500"
+                                                                    >
+                                                                        <FaTrashAlt />
+                                                                    </button>
+                                                                </div>
+                                                                <div className="flex items-center gap-3 mt-2">
+                                                                    <button
+                                                                        className="text-gray-500 text-2xl"
+                                                                        onClick={(e) => {
+                                                                            e.preventDefault();
+                                                                            updateQty(data.id, false);
+                                                                        }}
+                                                                        disabled={orderQty[data.id] <= 0}
+                                                                    >
+                                                                        <CiSquareMinus />
+                                                                    </button>
+                                                                    <span className="text-lg">{qty}</span>
+                                                                    <button
+                                                                        className="text-gray-500 text-2xl"
+                                                                        onClick={(e) => {
+                                                                            e.preventDefault();
+                                                                            updateQty(data.id, true);
+                                                                        }}
+                                                                    >
+                                                                        <CiSquarePlus />
+                                                                    </button>
+                                                                </div>
+                                                                <p className="font-semibold mt-1 text-gray-700">
+                                                                    Rp {(qty * data.price).toLocaleString()}
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <h5 className="font-bold text-base mt-2">
-                                                            {data.name}
-                                                        </h5>
-                                                        <div className="flex items-center space-x-3 mt-2">
-                                                            <button
-                                                                className="text-gray-500 text-3xl cursor-pointer"
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    updateQty(data.id, false);
-                                                                }}
-                                                                disabled={orderQty[data.id] <= 0}
-                                                            >
-                                                                <CiSquareMinus />
-                                                            </button>
-                                                            <span className="text-lg text-gray-900">
-                                                                {orderQty[data.id] || 0}
-                                                            </span>
-                                                            <button
-                                                                className="text-gray-500 text-3xl cursor-pointer"
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    updateQty(data.id, true);
-                                                                }}
-                                                            >
-                                                                <CiSquarePlus />
-                                                            </button>
-                                                        </div>
-                                                        <span className="font-bold block mt-1">
-                                                            Rp {(qty * data.price).toLocaleString()}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })
-                                )}
-
-                                {selectedOrderIds.length > 0 && (
-                                    <>
-                                        {/* -------- FORM ORDER -------- */}
-                                        <InputGroupComponent
-                                            id="customer"
-                                            type="text"
-                                            value={orderForm.customer}
-                                            onChange={(val: any) =>
-                                                setOrderForm({ ...orderForm, customer: val })
-                                            }
-                                            required
-                                            label="Customer"
-                                            className="text-black"
-                                        />
-                                        <InputGroupComponent
-                                            id="table_number"
-                                            type="text"
-                                            value={orderForm.alamat}
-                                            onChange={(val: any) =>
-                                                setOrderForm({ ...orderForm, alamat: val })
-                                            }
-                                            required
-                                            label="Address"
-                                            className="text-black"
-                                        />
-                                        <CardSelect
-                                            value={orderForm.payment_method}
-                                            onChange={(val: any) =>
-                                                setOrderForm({ ...orderForm, payment_method: val })
-                                            }
-                                            label="Payment Method"
-                                            required
-                                            options={[
-                                                { value: "CASH", label: "CASH" },
-                                                { value: "QRIS", label: "QRIS" },
-                                            ]}
-                                        />
-                                        <TextGroupComponent
-                                            id="order-note"
-                                            value={orderNote}
-                                            onChange={(val: any) => setOrderNote(val)}
-                                            label="Order Note"
-                                            className="text-black"
-                                            type="text"
-                                        />
-
-                                        {/* -------- DETAIL -------- */}
-                                        <div className="mt-6 rounded-lg text-gray-700">
-                                            <h4 className="text-lg font-bold">
-                                                Transaction Details
-                                            </h4>
-                                            <ul className="text-sm">
-                                                {selectedOrderIds.map((orderId) => {
-                                                    const menuItem = product.find(
-                                                        (item) => item.id === orderId
-                                                    );
-                                                    if (!menuItem) return null;
-                                                    const qty = orderQty[orderId] || 0;
-                                                    return (
-                                                        <li
-                                                            key={orderId}
-                                                            className="flex justify-between border-b py-1"
-                                                        >
-                                                            <span>
-                                                                {menuItem.name} x {qty}
-                                                            </span>
-                                                            <span>
-                                                                Rp {(qty * menuItem.price).toLocaleString()}
-                                                            </span>
-                                                        </li>
                                                     );
                                                 })}
-                                            </ul>
-                                            <h4 className="text-lg font-bold mt-3">
-                                                Total: Rp {totalTransaction.toLocaleString()}
-                                            </h4>
                                         </div>
 
-                                        {/* -------- ACTION -------- */}
-                                        <div className="flex justify-end gap-2 mt-4">
-                                            <ButtonDanger type="button" onClick={resetOrderState}>
-                                                Cancel
-                                            </ButtonDanger>
-                                            <ButtonPrimary type="submit">
-                                                Order Sekarang
-                                            </ButtonPrimary>
+                                        {/* === RIGHT: Form & Summary === */}
+                                        <div>
+                                            <h3 className="text-lg font-bold mb-4 text-gray-800">Detail Pemesanan</h3>
+
+                                            <InputGroupComponent
+                                                id="customer"
+                                                type="text"
+                                                value={orderForm.customer}
+                                                onChange={(val: any) => setOrderForm({ ...orderForm, customer: val })}
+                                                required
+                                                label="Customer"
+                                                className="text-black"
+                                            />
+
+                                            <InputGroupComponent
+                                                id="table_number"
+                                                type="text"
+                                                value={orderForm.alamat}
+                                                onChange={(val: any) => setOrderForm({ ...orderForm, alamat: val })}
+                                                required
+                                                label="Address"
+                                                className="text-black p-4"
+                                            />
+
+                                            <CardSelect
+                                                value={orderForm.payment_method}
+                                                onChange={(val: any) =>
+                                                    setOrderForm({ ...orderForm, payment_method: val })
+                                                }
+                                                label="Payment Method"
+                                                required
+                                                options={[
+                                                    { value: "CASH", label: "CASH" },
+                                                    { value: "QRIS", label: "QRIS" },
+                                                ]}
+                                                className=""
+                                            />
+
+                                            <TextGroupComponent
+                                                id="order-note"
+                                                value={orderNote}
+                                                onChange={(val: any) => setOrderNote(val)}
+                                                label="Order Note"
+                                                className="text-black"
+                                                type="text"
+                                            />
+
+                                            <div className="mt-6 bg-gray-100 p-4 rounded-lg">
+                                                <h4 className="text-md font-bold text-gray-800 mb-2">Ringkasan Transaksi</h4>
+                                                <ul className="text-sm text-gray-700">
+                                                    {selectedOrderIds.map((orderId) => {
+                                                        const menuItem = product.find((item) => item.id === orderId);
+                                                        const qty = orderQty[orderId] || 0;
+                                                        if (!menuItem) return null;
+                                                        return (
+                                                            <li key={orderId} className="flex justify-between py-1">
+                                                                <span>{menuItem.name} x {qty}</span>
+                                                                <span>Rp {(qty * menuItem.price).toLocaleString()}</span>
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+                                                <hr className="my-2" />
+                                                <h4 className="text-md font-bold">
+                                                    Total: Rp {totalTransaction.toLocaleString()}
+                                                </h4>
+                                            </div>
+
+                                            <div className="flex justify-end gap-2 mt-6">
+                                                <ButtonDanger type="button" onClick={resetOrderState}>
+                                                    Cancel
+                                                </ButtonDanger>
+                                                <ButtonPrimary type="submit">
+                                                    Order Sekarang
+                                                </ButtonPrimary>
+                                            </div>
                                         </div>
-                                    </>
-                                )}
-                            </form>
+                                    </div>
+                                </form>
+                            )}
                         </div>
                     </div>
                 )}
+
             </div>
         </div>
     );

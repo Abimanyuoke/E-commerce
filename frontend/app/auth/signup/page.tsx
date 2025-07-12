@@ -13,6 +13,8 @@ import { IoEyeSharp } from "react-icons/io5";
 import { HiEyeSlash } from "react-icons/hi2";
 import Image from "next/image";
 import imgSignup from "../../../public/image/signup.jpeg"
+import { BsFillTelephoneForwardFill } from "react-icons/bs";
+import { SiGooglemaps } from "react-icons/si";
 
 export default function SignUp() {
 
@@ -78,13 +80,13 @@ export default function SignUp() {
                         <Image src={imgSignup} alt="Image Login" height={600} width={600} className="bg-cover rounded-l-lg" />
                         <span className="absolute bottom-0 w-full h-[200px] bg-gradient-to-t opacity-30 from-black via via-black to-transparent">{""}</span>
                         <div className="absolute bottom-0 text-white space-y-2 p-4">
-                            <h4 className="text-5xl font-semibold leading-[58px]">
+                            <h4 className="text-4xl font-semibold leading-[40px]">
                                 Join the <br /> Adventure Shopping
                             </h4>
                             <p className="text-[15px] text-white leading-6 pr-7 mt-4">Create an account to start documenting your shoping.</p>
                         </div>
                     </div>
-                    <div className="w-3/5 h-[580px] p-10 bg-white rounded-r-lg relative">
+                    <div className="w-3/5 h-[660px] p-10 bg-white rounded-r-lg relative">
                         <h1 className="text-2xl font-semibold mb-7">
                             SignUp
                         </h1>
@@ -101,6 +103,26 @@ export default function SignUp() {
                                     required={true} label="Email" placeholder="Email" className="pl-5" />
                             </div>
 
+                            <div className="flex items-center gap-2">
+                                <div className="relative flex w-full items-center">
+                                    <div className="p-3 top-[26px] absolute text-[#8390A2]">
+                                        <SiGooglemaps className=" text-lg" />
+                                    </div>
+                                    <InputGroupComponent id={`alamat`} type="text" value={user.alamat}
+                                        onChange={val => setUser({ ...user, alamat: val })}
+                                        required={true} label="Alamat" placeholder="Alamat" className="pl-9" />
+                                </div>
+
+                                <div className="relative flex w-full items-center">
+                                    <div className="p-3 top-[26px] absolute text-[#8390A2]">
+                                        <BsFillTelephoneForwardFill className=" text-lg" />
+                                    </div>
+                                    <InputGroupComponent id={`telephone`} type="text" value={user.telephone}
+                                        onChange={val => setUser({ ...user, telephone: val })}
+                                        required={true} label="Telephone" placeholder="+62xxx" className="pl-9" />
+                                </div>
+                            </div>
+
                             <div className="relative flex w-full items-center">
                                 <InputGroupComponent id={`password`} type={showPassword ? `text` : `password`} value={user.password}
                                     onChange={val => setUser({ ...user, password: val })}
@@ -113,10 +135,10 @@ export default function SignUp() {
                                 </div>
                             </div>
                             <FileInput acceptTypes={["application/pdf", "image/png", "image/jpeg", "image/jpg"]} id="profile_picture"
-                                label="Upload Picture" onChange={f => setFile(f)} required={false}/>
+                                label="Upload Picture" onChange={f => setFile(f)} required={false} />
 
                             <button
-                                type="submit"  className="mt-3 uppercase text-sm font-semibold bg-[#fea928] shadow-lg  p-[10px] my-1 hover:text-white duration-200 transition-all  text-white py-2 rounded-full cursor-pointer">
+                                type="submit" className="mt-3 uppercase text-sm font-semibold bg-[#fea928] shadow-lg  p-[10px] my-1 hover:text-white duration-200 transition-all  text-white py-2 rounded-full cursor-pointer">
                                 create account
                             </button>
                             <div className="flex flex-col justify-center text-center">
