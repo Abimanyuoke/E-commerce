@@ -299,7 +299,7 @@ const OrderPage = () => {
             </div>
 
             {/* ----------------- HEADER & SEARCH ----------------- */}
-            <div className="mt-2 rounded-lg">
+            <div className="mt-16">
                 <div className="flex flex-col my-5 px-10">
                     <h4 className="text-3xl font-bold text-slate-900 dark:text-white">
                         Shopsy Pakaian Yang Tersedia

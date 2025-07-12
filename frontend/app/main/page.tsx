@@ -36,7 +36,7 @@ const Main = () => {
             <Navbar handleOrderPopup={handleOrderPopup} />
             <Hero handleOrderPopup={handleOrderPopup} />
             <Products />
-            <TopProducts handleOrderPopup={handleOrderPopup} />
+            <TopProducts />
             <Banner />
             <Subscribe />
             <Products />

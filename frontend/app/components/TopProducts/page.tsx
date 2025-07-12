@@ -5,6 +5,7 @@ import Img1 from "../../../public/shirt/shirt.png"
 import Img2 from "../../../public/shirt/shirt2.png"
 import Img3 from "../../../public/shirt/shirt3.png"
 import { FaStar } from 'react-icons/fa6'
+import { useRouter } from 'next/navigation';
 
 
 const Products = [
@@ -31,12 +32,9 @@ const Products = [
     },
 ]
 
+const TopProducts: React.FC = () => {
+    const router = useRouter();
 
-interface TopProductsProps {
-    handleOrderPopup: () => void;
-}
-
-const TopProducts: React.FC<TopProductsProps> = ({ handleOrderPopup }) => {
     return (
         <div>
             <div className='container'>
@@ -66,8 +64,7 @@ const TopProducts: React.FC<TopProductsProps> = ({ handleOrderPopup }) => {
                                     </div>
                                     <h1 className='text-xl font-bold'>{data.title}</h1>
                                     <p className='text-gray-500 group-hover:text-white duration-300 text-sm line-clamp-2'>{data.description}</p>
-                                    <button onClick={handleOrderPopup} className='bg-primary hover:scale-105 duration-300 text-white py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-primary'
-                                    >
+                                    <button className='bg-primary hover:scale-105 duration-300 text-white py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-primary' onClick={() => router.push('/products')}>
                                         Order Now
                                     </button>
                                 </div>
