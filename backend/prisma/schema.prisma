@@ -66,10 +66,21 @@ enum SubCategory {
   CELANA_OLAHRAGA
 }
 
+enum Size {
+  XS
+  S
+  M
+  L
+  XL
+  XXL
+  XXXL
+}
+
 
 enum Payment {
   CASH
   QRIS
+  BANK
 }
 
 enum Status {
@@ -101,6 +112,7 @@ model Product {
   price        Int          @default(0)
   mainCategory MainCategory
   subCategory  SubCategory
+  size         Size?
   picture      String       @default("")
   description  String       @db.Text
   createdAt    DateTime     @default(now())
