@@ -12,13 +12,15 @@ import { TiShoppingCart } from "react-icons/ti";
 import { toast } from "sonner";
 import { InputGroupComponent, TextGroupComponent } from "../components/InputComponent";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaMoneyBill, FaTrashAlt } from "react-icons/fa";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import CardSelect from "../components/card";
 import SizeSelectCard from "../components/size_selected";
 import Image from "next/image";
 import axios from "axios";
 import Navbar_Products from "../components/navbar_products/page";
+import { MdOutlineQrCodeScanner } from "react-icons/md";
+import { BsPiggyBank } from "react-icons/bs";
 
 const OrderPage = () => {
     const searchParams = useSearchParams();
@@ -539,9 +541,9 @@ const OrderPage = () => {
                                                 label="Payment Method"
                                                 required
                                                 options={[
-                                                    { value: "CASH", label: "CASH", icon: <TiShoppingCart /> },
-                                                    { value: "QRIS", label: "QRIS", icon: <TiShoppingCart /> },
-                                                    { value: "BANK", label: "BANK", icon: <TiShoppingCart /> },
+                                                    { value: "CASH", label: "CASH", icon: <FaMoneyBill /> },
+                                                    { value: "QRIS", label: "QRIS", icon: <MdOutlineQrCodeScanner /> },
+                                                    { value: "BANK", label: "BANK", icon: <BsPiggyBank /> },
                                                 ]}
                                                 className=""
                                             />
