@@ -100,7 +100,6 @@ model User {
   telephone       String   @default("")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-
   Order Order[]
 }
 
@@ -127,7 +126,7 @@ model Order {
   payment_method Payment     @default(CASH)
   alamat         String      @default("")
   status         Status      @default(NEW)
-  size           Size?
+  size           Size
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
   orderLists     OrderList[]

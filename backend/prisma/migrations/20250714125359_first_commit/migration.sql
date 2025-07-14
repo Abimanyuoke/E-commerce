@@ -43,7 +43,7 @@ CREATE TABLE `Order` (
     `payment_method` ENUM('CASH', 'QRIS', 'BANK') NOT NULL DEFAULT 'CASH',
     `alamat` VARCHAR(191) NOT NULL DEFAULT '',
     `status` ENUM('NEW', 'PAID', 'DONE') NOT NULL DEFAULT 'NEW',
-    `size` ENUM('XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL') NULL,
+    `size` ENUM('XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL') NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `userId` INTEGER NULL,

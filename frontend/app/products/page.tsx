@@ -42,10 +42,6 @@ const OrderPage = () => {
     const [selectedMainCategory, setSelectedMainCategory] = useState<string>("ALL");
     const [selectedSubCategory, setSelectedSubCategory] = useState<string>("ALL");
 
-
-
-
-
     /** ---------- STATE ---------- */
     const [product, setProduct] = useState<IProduct[]>([]);
     const [loading, setLoading] = useState(true);
@@ -125,20 +121,6 @@ const OrderPage = () => {
         }
     };
 
-    { /*  */ }
-
-    //     const handleAddToCart = (id: number) => {
-    //     const updatedIds = [...selectedOrderIds, id];
-    //     const uniqueIds = Array.from(new Set(updatedIds)); // avoid duplicates
-
-    //     setSelectedOrderIds(uniqueIds);
-    //     setOrderQty((prevQty) => ({ ...prevQty, [id]: (prevQty[id] || 0) + 1 }));
-
-    //     const idsParam = uniqueIds.join(",");
-    //     router.push(`/checkout?ids=${idsParam}`);
-    // };
-
-
     const handleRemoveFromCart = (id: number) => {
         setSelectedOrderIds((prev) => prev.filter((item) => item !== id));
         setOrderQty((prev) => {
@@ -193,7 +175,7 @@ const OrderPage = () => {
             alamat: alamat,
             payment_method: orderForm.payment_method,
             status: orderForm.status,
-            size: selectedSize,
+            size: orderForm.size,
             orderlists,
             user: { id: userId },
         };
@@ -550,7 +532,9 @@ const OrderPage = () => {
 
                                             <SizeSelectCard
                                                 value={selectedSize}
-                                                onChange={setSelectedSize}
+                                                onChange={(val: any) =>
+                                                    setOrderForm({ ...orderForm, size: val })
+                                                }
                                                 label="Pilih Ukuran"
                                                 required
                                             />

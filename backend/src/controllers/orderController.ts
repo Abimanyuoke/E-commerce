@@ -41,7 +41,7 @@ export const getAllOrders = async (request: Request, response: Response) => {
 export const createOrder = async (request: Request, response: Response) => {
     try {
         /** get requested data (data has been sent from request) */
-        const { customer, alamat, payment_method, status, orderlists } = request.body
+        const { customer, alamat, payment_method, status, orderlists, size } = request.body
         const user = request.body.user
         const uuid = uuidv4()
         /** 
@@ -65,7 +65,7 @@ export const createOrder = async (request: Request, response: Response) => {
 
         /** process to save new order */
         const newOrder = await prisma.order.create({
-            data: { uuid, customer, alamat, total_price, payment_method, status, userId: user.id }
+            data: { uuid, customer, alamat, total_price, payment_method, status, userId: user.id, size }
         })
 
         /** loop details of Order to save in database */
