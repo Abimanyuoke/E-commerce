@@ -25,6 +25,8 @@ const OrderPage = () => {
     const search = searchParams.get("search") || "";
     const router = useRouter();
     const [selectedSize, setSelectedSize] = useState("M");
+    const alamat = getCookies("alamat");
+    const user = getCookies("name");
 
     const subCategoryMap: Record<string, string[]> = {
         WANITA: ["BLOUSE", "DRESS", "ROK", "TUNIK", "OUTER", "HIJAB", "SETELAN_FORMAL"],
@@ -37,6 +39,8 @@ const OrderPage = () => {
 
     const [selectedMainCategory, setSelectedMainCategory] = useState<string>("ALL");
     const [selectedSubCategory, setSelectedSubCategory] = useState<string>("ALL");
+
+
 
 
 
@@ -183,10 +187,11 @@ const OrderPage = () => {
             }));
 
         const payload = {
-            customer: orderForm.customer,
-            alamat: orderForm.alamat,
+            customer: user,
+            alamat: alamat,
             payment_method: orderForm.payment_method,
             status: orderForm.status,
+            size: selectedSize,
             orderlists,
             user: { id: userId },
         };
@@ -508,7 +513,7 @@ const OrderPage = () => {
                                             <InputGroupComponent
                                                 id="customer"
                                                 type="text"
-                                                value={orderForm.customer}
+                                                value={user || ""}
                                                 onChange={(val: any) => setOrderForm({ ...orderForm, customer: val })}
                                                 required
                                                 label="Customer"
@@ -516,14 +521,15 @@ const OrderPage = () => {
                                             />
 
                                             <InputGroupComponent
-                                                id="table_number"
+                                                id="alamat"
                                                 type="text"
-                                                value={orderForm.alamat}
+                                                value={alamat || ""}
                                                 onChange={(val: any) => setOrderForm({ ...orderForm, alamat: val })}
                                                 required
-                                                label="Address"
-                                                className="text-black p-4"
+                                                label="Alamat"
+                                                className="text-black"
                                             />
+
 
                                             <CardSelect
                                                 value={orderForm.payment_method}
@@ -546,54 +552,54 @@ const OrderPage = () => {
                                                 label="Pilih Ukuran"
                                                 required
                                             />
-                                            
-                                        <TextGroupComponent
-                                            id="order-note"
-                                            value={orderNote}
-                                            onChange={(val: any) => setOrderNote(val)}
-                                            label="Order Note"
-                                            className="text-black"
-                                            type="text"
-                                        />
 
-                                        <div className="mt-6 bg-gray-100 p-4 rounded-lg">
-                                            <h4 className="text-md font-bold text-gray-800 mb-2">Ringkasan Transaksi</h4>
-                                            <ul className="text-sm text-gray-700">
-                                                {selectedOrderIds.map((orderId) => {
-                                                    const menuItem = product.find((item) => item.id === orderId);
-                                                    const qty = orderQty[orderId] || 0;
-                                                    if (!menuItem) return null;
-                                                    return (
-                                                        <li key={orderId} className="flex justify-between py-1">
-                                                            <span>{menuItem.name} x {qty}</span>
-                                                            <span>Rp {(qty * menuItem.price).toLocaleString()}</span>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                            <hr className="my-2" />
-                                            <h4 className="text-md font-bold">
-                                                Total: Rp {totalTransaction.toLocaleString()}
-                                            </h4>
-                                        </div>
+                                            <TextGroupComponent
+                                                id="order-note"
+                                                value={orderNote}
+                                                onChange={(val: any) => setOrderNote(val)}
+                                                label="Order Note"
+                                                className="text-black"
+                                                type="text"
+                                            />
 
-                                        <div className="flex justify-end gap-2 mt-6">
-                                            <ButtonDanger type="button" onClick={resetOrderState}>
-                                                Cancel
-                                            </ButtonDanger>
-                                            <ButtonPrimary type="submit">
-                                                Order Sekarang
-                                            </ButtonPrimary>
+                                            <div className="mt-6 bg-gray-100 p-4 rounded-lg">
+                                                <h4 className="text-md font-bold text-gray-800 mb-2">Ringkasan Transaksi</h4>
+                                                <ul className="text-sm text-gray-700">
+                                                    {selectedOrderIds.map((orderId) => {
+                                                        const menuItem = product.find((item) => item.id === orderId);
+                                                        const qty = orderQty[orderId] || 0;
+                                                        if (!menuItem) return null;
+                                                        return (
+                                                            <li key={orderId} className="flex justify-between py-1">
+                                                                <span>{menuItem.name} x {qty}</span>
+                                                                <span>Rp {(qty * menuItem.price).toLocaleString()}</span>
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+                                                <hr className="my-2" />
+                                                <h4 className="text-md font-bold">
+                                                    Total: Rp {totalTransaction.toLocaleString()}
+                                                </h4>
+                                            </div>
+
+                                            <div className="flex justify-end gap-2 mt-6">
+                                                <ButtonDanger type="button" onClick={resetOrderState}>
+                                                    Cancel
+                                                </ButtonDanger>
+                                                <ButtonPrimary type="submit">
+                                                    Order Sekarang
+                                                </ButtonPrimary>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </form>
                             )}
-                    </div>
+                        </div>
                     </div>
                 )}
 
-        </div>
+            </div>
         </div >
     );
 };

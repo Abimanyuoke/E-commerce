@@ -142,10 +142,8 @@ model OrderList {
   note      String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   Product   Product? @relation(fields: [productId], references: [id])
   productId Int?
-
   Order   Order? @relation(fields: [orderId], references: [id])
   orderId Int?
 }

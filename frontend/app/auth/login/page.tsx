@@ -21,9 +21,9 @@ export default function Login() {
             e.preventDefault()
             const url = `${BASE_API_URL}/user/login`
             const payload = JSON.stringify({ email: email, password })
-            const { data } = await axios.post<{ status: boolean; message: string; token: string; data?: { id: string; name: string; role: string; profile_picture?: string } }>(url, payload, {
-                headers: { "Content-Type": "application/json" }
-            })
+            const { data } = await axios.post<{
+                status: boolean; message: string; token: string; data?: {
+                    alamat: string; id: string; name: string; role: string; profile_picture?: string}}>(url, payload, {headers: { "Content-Type": "application/json" }})
             if (data.status == true) {
                 toast.success("Login success", { duration: 2000 })
                 storeCookie("token", data.token)
@@ -31,6 +31,7 @@ export default function Login() {
                     storeCookie("id", data.data.id)
                     storeCookie("name", data.data.name)
                     storeCookie("role", data.data.role)
+                    storeCookie("alamat", data.data.alamat)
                     storeCookie("profile_picture", data.data.profile_picture || "")
                     let role = data.data.role
                     if (role === `MANAGER`) setTimeout(() => router.replace(`/manager/dashboard`), 1000)

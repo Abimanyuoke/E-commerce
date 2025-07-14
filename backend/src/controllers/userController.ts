@@ -248,8 +248,9 @@ export const authentication = async (request: Request, response: Response) => {
             name: findUser.name,
             email: findUser.email,
             role: findUser.role,
+            alamat: findUser.alamat,
             profile_picture: findUser.profile_picture,
-        }
+        }   
 
         /** define payload to generate token */
         let payload = JSON.stringify(data)

@@ -2,16 +2,17 @@
 
 import React, { useState } from 'react'
 import logo from "../../../public/logo.png";
-import { IoMdSearch } from "react-icons/io";
 import DarkMode from "."
-import { BASE_IMAGE_PROFILE } from "../../global"
 import Search from "./search";
+import search from './search';
+import Image from 'next/image';
 import { useEffect } from "react";
 import { IProduct } from "@/app/types";
 import { getCookies } from "@/lib/client-cookies";
 import { BASE_API_URL, } from "../../global";
+import { BASE_IMAGE_PROFILE } from "../../global"
+import { IoMdSearch } from "react-icons/io";
 import { get } from "@/lib/bridge";
-import search from './search';
 import { IoMdArrowDropup } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -20,9 +21,15 @@ const Navbar_Products: React.FC = () => {
   const [popup, setPopup] = useState(false);
   const [product, setProduct] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const profile = getCookies("profile_picture");
-  const user = getCookies("name");
-  const role = getCookies("role");
+  const [profile, setProfile] = useState<string>("");
+  const [user, setUser] = useState<string>("");
+  const [role, setRole] = useState<string>("");
+
+  useEffect(() => {
+    setProfile(getCookies("profile_picture") || "");
+    setUser(getCookies("name") || "");
+    setRole(getCookies("role") || "");
+  }, []);
 
   const handlePopup = () => {
     setPopup(!popup)
