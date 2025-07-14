@@ -4,3 +4,9 @@ Update:
 2. Untuk yang profile bisa diklik diluar hilang
 3. Hilangin untuk yang alamat di order karena pakai alamat yang default
 4. Tambahin  Ukuran untuk baju di order
+
+
+5. tambahin tombol exit
+6. tambahin barang yang sudah dibeli | report
+7. perbaiki middle ware
+8. membuat untuk yang password
