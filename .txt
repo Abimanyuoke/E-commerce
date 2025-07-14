@@ -1,0 +1,6 @@
+Update:
+
+1. Tambahin Transaksi Bank sama Icon
+2. Untuk yang profile bisa diklik diluar hilang
+3. Hilangin untuk yang alamat di order karena pakai alamat yang default
+4. Tambahin  Ukuran untuk baju di order
