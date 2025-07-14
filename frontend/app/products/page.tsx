@@ -21,14 +21,15 @@ import axios from "axios";
 import Navbar_Products from "../components/navbar_products/page";
 import { MdOutlineQrCodeScanner } from "react-icons/md";
 import { BsPiggyBank } from "react-icons/bs";
+import CardSelectSize from "../components/size_selected";
 
 const OrderPage = () => {
     const searchParams = useSearchParams();
     const search = searchParams.get("search") || "";
     const router = useRouter();
-    const [selectedSize, setSelectedSize] = useState("M");
-    const alamat = getCookies("alamat");
-    const user = getCookies("name");
+    const [selectedSize] = useState("M");
+    // const alamat = getCookies("alamat");
+    // const user = getCookies("name");
 
     const subCategoryMap: Record<string, string[]> = {
         WANITA: ["BLOUSE", "DRESS", "ROK", "TUNIK", "OUTER", "HIJAB", "SETELAN_FORMAL"],
@@ -533,16 +534,24 @@ const OrderPage = () => {
                                                     { value: "QRIS", label: "QRIS", icon: <MdOutlineQrCodeScanner /> },
                                                     { value: "BANK", label: "BANK", icon: <BsPiggyBank /> },
                                                 ]}
-                                                className=""
                                             />
 
-                                            <SizeSelectCard
-                                                value={selectedSize}
+                                            <CardSelectSize
+                                                value={orderForm.size}
                                                 onChange={(val: any) =>
                                                     setOrderForm({ ...orderForm, size: val })
                                                 }
-                                                label="Pilih Ukuran"
+                                                label="Pilihan Ukuran"
                                                 required
+                                                options={[
+                                                    { value: "XS", label: "XS" },
+                                                    { value: "S", label: "S" },
+                                                    { value: "M", label: "M" },
+                                                    { value: "L", label: "L" },
+                                                    { value: "XL", label: "XL" },
+                                                    { value: "XXL", label: "XXL" },
+                                                    { value: "XXXL", label: "XXXL" },
+                                                ]}
                                             />
 
                                             <TextGroupComponent

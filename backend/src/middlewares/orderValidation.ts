@@ -3,7 +3,7 @@ import Joi from 'joi'
 
 /** create schema for detail of orderlist */
 const orderListSchema = Joi.object({
-    menuId: Joi.number().required(),
+    productId: Joi.number().required(),
     quantity: Joi.number().required(),
     note: Joi.string().optional(),
 })
@@ -12,12 +12,14 @@ const orderListSchema = Joi.object({
 const addDataSchema = Joi.object({
     customer: Joi.string().required(),
     alamat: Joi.string().required(),
-    payment_method: Joi.string().valid("CASH", "QRIS").uppercase().required(),
+    payment_method: Joi.string().valid("CASH", "QRIS", "BANK").uppercase().required(),
     status: Joi.string().valid("NEW", "PAID", "DONE").uppercase().required(),
+    size: Joi.string().valid("XS", "S", "M", "L", "XL", "XXL", "XXXL").uppercase().required(),
     userId: Joi.number().optional(),
     orderlists: Joi.array().items(orderListSchema).min(1).required(),
-    user: Joi.optional()
-})
+    user: Joi.optional(),
+});
+
 
 /** create schema when edit status order's data */
 const editDataSchema = Joi.object({

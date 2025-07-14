@@ -65,7 +65,7 @@ export const createOrder = async (request: Request, response: Response) => {
 
         /** process to save new order */
         const newOrder = await prisma.order.create({
-            data: { uuid, customer, alamat, total_price, payment_method, status, userId: user.id, size }
+            data: { uuid, customer, alamat, total_price, payment_method, status, userId: user, size }
         })
 
         /** loop details of Order to save in database */
