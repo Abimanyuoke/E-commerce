@@ -33,6 +33,7 @@ export interface IOrder {
     total_price: number;
     payment_method: string;
     status: string;
+    size: string;
     createdAt: string;
     updatedAt: string;
     userId: number;
