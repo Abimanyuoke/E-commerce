@@ -151,6 +151,10 @@ const OrderPage = () => {
         return total + (menuItem ? qty * menuItem.price : 0);
     }, 0);
 
+    const TOKEN = getCookies("token") || "";
+    console.log("TOKEN SAAT SUBMIT:", TOKEN);
+
+
     /** ---------- SUBMIT ORDER ---------- */
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -165,19 +169,21 @@ const OrderPage = () => {
         const orderlists = Object.keys(orderQty)
             .filter((id) => orderQty[Number(id)] > 0)
             .map((id) => ({
-                menuId: Number(id),
+                productId: Number(id),
                 quantity: orderQty[Number(id)],
                 note: orderNote || "",
             }));
 
         const payload = {
-            customer: user,
-            alamat: alamat,
+            // customer: user,
+            // alamat: alamat,
+            customer: orderForm.customer,
+            alamat: orderForm.alamat,
             payment_method: orderForm.payment_method,
             status: orderForm.status,
             size: orderForm.size,
             orderlists,
-            user: { id: userId },
+            userId: userId,
         };
 
         try {
@@ -421,7 +427,7 @@ const OrderPage = () => {
                             {selectedOrderIds.length === 0 ? (
                                 <div className="text-center text-gray-500 my-20">
                                     <p className="text-lg font-semibold">Keranjang Kosong</p>
-                                    <p className="text-sm">Silakan tambahkan menu terlebih dahulu.</p>
+                                    <p className="text-sm">Silakan tambahkan product terlebih dahulu.</p>
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} ref={formRef}>
@@ -497,7 +503,7 @@ const OrderPage = () => {
                                             <InputGroupComponent
                                                 id="customer"
                                                 type="text"
-                                                value={user || ""}
+                                                value={orderForm.customer}
                                                 onChange={(val: any) => setOrderForm({ ...orderForm, customer: val })}
                                                 required
                                                 label="Customer"
@@ -507,7 +513,7 @@ const OrderPage = () => {
                                             <InputGroupComponent
                                                 id="alamat"
                                                 type="text"
-                                                value={alamat || ""}
+                                                value={orderForm.alamat}
                                                 onChange={(val: any) => setOrderForm({ ...orderForm, alamat: val })}
                                                 required
                                                 label="Alamat"

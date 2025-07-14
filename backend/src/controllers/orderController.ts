@@ -52,14 +52,14 @@ export const createOrder = async (request: Request, response: Response) => {
         /** loop details of order to check menu and count the total price */
         let total_price = 0
         for (let index = 0; index < orderlists.length; index++) {
-            const { menuId } = orderlists[index]
+            const { productId } = orderlists[index]
             const detailMenu = await prisma.product.findFirst({
                 where: {
-                    id: menuId
+                    id: productId
                 }
             })
             if (!detailMenu) return response
-            .status(200).json({ status: false, message: `Menu with id ${menuId} is not found` })
+            .status(200).json({ status: false, message: `Menu with id ${productId} is not found` })
             total_price += (detailMenu.price *  orderlists[index].quantity)
         }
 
@@ -71,10 +71,10 @@ export const createOrder = async (request: Request, response: Response) => {
         /** loop details of Order to save in database */
         for (let index = 0; index < orderlists.length; index++) {
             const uuid = uuidv4()
-            const { menuId, quantity, note } = orderlists[index]
+            const { productId, quantity, note } = orderlists[index]
             await prisma.orderList.create({
                 data: {
-                    uuid, orderId: newOrder.id, productId: Number(menuId), quantity: Number(quantity), note
+                    uuid, orderId: newOrder.id, productId: Number(productId), quantity: Number(quantity), note
                 }
             })
         }
