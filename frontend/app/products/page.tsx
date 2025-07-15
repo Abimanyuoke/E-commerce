@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, FormEvent } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { IProduct, IOrder } from "@/app/types";
 import { getCookies } from "@/lib/client-cookies";
-import { BASE_API_URL, BASE_IMAGE_PRODUCT } from "../global";
+import { BASE_API_URL, BASE_IMAGE_PRODUCT } from "../../global";
 import { get } from "@/lib/bridge";
 import { AlertToko } from "../components/alert";
 import { ButtonPrimary, ButtonDanger, ButtonOrder } from "../components/button";

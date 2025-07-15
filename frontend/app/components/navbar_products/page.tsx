@@ -9,8 +9,8 @@ import Image from 'next/image';
 import { useEffect } from "react";
 import { IProduct } from "@/app/types";
 import { getCookies } from "@/lib/client-cookies";
-import { BASE_API_URL, } from "../../global";
-import { BASE_IMAGE_PROFILE } from "../../global"
+import { BASE_API_URL, } from "../../../global";
+import { BASE_IMAGE_PROFILE } from "../../../global"
 import { IoMdSearch } from "react-icons/io";
 import { get } from "@/lib/bridge";
 import { IoMdArrowDropup } from "react-icons/io";

@@ -1,6 +1,6 @@
 "use client"
 
-import { BASE_API_URL } from "../../global";
+import { BASE_API_URL } from "../../../global";
 import { storeCookie } from "@/lib/client-cookies";
 import { useRouter } from "next/navigation"
 import { FormEvent, useState } from "react";
@@ -23,7 +23,9 @@ export default function Login() {
             const payload = JSON.stringify({ email: email, password })
             const { data } = await axios.post<{
                 status: boolean; message: string; token: string; data?: {
-                    alamat: string; id: string; name: string; role: string; profile_picture?: string}}>(url, payload, {headers: { "Content-Type": "application/json" }})
+                    alamat: string; id: string; name: string; role: string; profile_picture?: string
+                }
+            }>(url, payload, { headers: { "Content-Type": "application/json" } })
             if (data.status == true) {
                 toast.success("Login success", { duration: 2000 })
                 storeCookie("token", data.token)

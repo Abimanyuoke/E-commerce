@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { AxiosError } from 'axios';
-import { BASE_API_URL } from "../app/global";
+import { BASE_API_URL } from "../global";
 
 const axiosInstance = axios.create({
     baseURL: BASE_API_URL

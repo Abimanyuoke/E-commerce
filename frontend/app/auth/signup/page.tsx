@@ -3,7 +3,7 @@
 import React, { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { BASE_API_URL } from "../../global";
+import { BASE_API_URL } from "../../../global";
 import { getCookies } from "../../../lib/client-cookies";
 import { IUser } from "../../../app/types";
 import { post } from "../../../lib/bridge";
