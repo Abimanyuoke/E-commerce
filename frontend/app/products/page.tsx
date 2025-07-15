@@ -27,9 +27,9 @@ const OrderPage = () => {
     const searchParams = useSearchParams();
     const search = searchParams.get("search") || "";
     const router = useRouter();
-    const [selectedSize] = useState("M");
-    // const alamat = getCookies("alamat");
-    // const user = getCookies("name");
+    // const [selectedSize] = useState("M");
+    const alamat = getCookies("alamat");
+    const user = getCookies("name");
 
     const subCategoryMap: Record<string, string[]> = {
         WANITA: ["BLOUSE", "DRESS", "ROK", "TUNIK", "OUTER", "HIJAB", "SETELAN_FORMAL"],
@@ -81,7 +81,7 @@ const OrderPage = () => {
             alamat: "",
             total_price: 0,
             payment_method: "",
-            status: "",
+            status: "NEW",
             size: "",
             createdAt: "",
             updatedAt: "",
@@ -176,12 +176,10 @@ const OrderPage = () => {
             }));
 
         const payload = {
-            // customer: user,
-            // alamat: alamat,
-            customer: orderForm.customer,
-            alamat: orderForm.alamat,
+            customer: user || orderForm.customer,
+            alamat: alamat || orderForm.alamat,
             payment_method: orderForm.payment_method,
-            status: orderForm.status,
+            status: orderForm.status || "NEW",
             size: orderForm.size,
             orderlists,
             userId: userId,

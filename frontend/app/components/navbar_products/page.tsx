@@ -5,16 +5,16 @@ import logo from "../../../public/logo.png";
 import DarkMode from "."
 import Search from "./search";
 import search from './search';
-import Image from 'next/image';
 import { useEffect } from "react";
 import { IProduct } from "@/app/types";
-import { getCookies } from "@/lib/client-cookies";
+import { getCookies, removeCookie } from "@/lib/client-cookies";
 import { BASE_API_URL, } from "../../../global";
 import { BASE_IMAGE_PROFILE } from "../../../global"
 import { IoMdSearch } from "react-icons/io";
 import { get } from "@/lib/bridge";
 import { IoMdArrowDropup } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from 'next/navigation';
 
 const Navbar_Products: React.FC = () => {
 
@@ -24,6 +24,16 @@ const Navbar_Products: React.FC = () => {
   const [profile, setProfile] = useState<string>("");
   const [user, setUser] = useState<string>("");
   const [role, setRole] = useState<string>("");
+  const router = useRouter();
+
+  const handleLogout = () => {
+    removeCookie("token");
+    removeCookie("id");
+    removeCookie("name");
+    removeCookie("role");
+    removeCookie("alamat")
+    router.replace(`/auth/login`);
+  };
 
   useEffect(() => {
     setProfile(getCookies("profile_picture") || "");
@@ -64,6 +74,20 @@ const Navbar_Products: React.FC = () => {
               <img src={logo.src} alt="logo" className='w-10 uppercase' />
               Shopsy
             </a>
+          </div>
+
+          {/* Exit Button */}
+          <div className="absolute bottom-4 w-full p-4">
+            <div className="flex items-center space-x-2 text-[#333333] px-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+              </svg>
+              <button className="font-semibold cursor-pointer" onClick={handleLogout}>
+                Exit
+              </button>
+            </div>
           </div>
 
           {/* search bar */}

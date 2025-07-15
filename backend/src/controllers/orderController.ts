@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 
+
 const prisma = new PrismaClient({ errorFormat: "pretty" })
 export const getAllOrders = async (request: Request, response: Response) => {
     try {
         /** get requested data (data has been sent from request) */
         const { search } = request.query
-        
+
         /** process to get order, contains means search name or table number of customer's order based on sent keyword */
         const allOrders = await prisma.order.findMany({
             where: {
@@ -16,7 +17,7 @@ export const getAllOrders = async (request: Request, response: Response) => {
                 ]
             },
             orderBy: { createdAt: "desc" }, /** sort by descending order date */
-            include: { 
+            include: {
                 User: true,
                 orderLists: {
                     include: { Product: true }
@@ -38,60 +39,124 @@ export const getAllOrders = async (request: Request, response: Response) => {
     }
 }
 
+// export const createOrder = async (request: Request, response: Response) => {
+//     try {
+//         /** get requested data (data has been sent from request) */
+//         const { customer, alamat, payment_method, status, orderlists, size } = request.body
+//         const userId = request.body.userId
+//         const uuid = uuidv4()
+//         /** 
+//          * assume that "orderlists" is an array of object that has keys:
+//          * menuId, quantity, note
+//          * */
+
+//         /** loop details of order to check menu and count the total price */
+//         let total_price = 0
+//         for (let index = 0; index < orderlists.length; index++) {
+//             const { productId } = orderlists[index]
+//             const detailMenu = await prisma.product.findFirst({
+//                 where: {
+//                     id: productId
+//                 }
+//             })
+//             if (!detailMenu) return response
+//             .status(200).json({ status: false, message: `Menu with id ${productId} is not found` })
+//             total_price += (detailMenu.price *  orderlists[index].quantity)
+//         }
+
+//         /** process to save new order */
+//         const newOrder = await prisma.order.create({
+//             data: { uuid, customer, alamat, total_price, payment_method, status, userId: userId, size }
+//         })
+
+//         /** loop details of Order to save in database */
+//         for (let index = 0; index < orderlists.length; index++) {
+//             const uuid = uuidv4()
+//             const { productId, quantity, note } = orderlists[index]
+//             await prisma.orderList.create({
+//                 data: {
+//                     uuid, orderId: newOrder.id, productId: Number(productId), quantity: Number(quantity), note
+//                 }
+//             })
+//         }
+//         return response.json({
+//             status: true,
+//             data: newOrder,
+//             message: `New Order has created`
+//         }).status(200)
+//     } catch (error) {
+//         return response
+//             .json({
+//                 status: false,
+//                 message: `There is an error. ${error}`
+//             })
+//             .status(400)
+//     }
+// }
+
 export const createOrder = async (request: Request, response: Response) => {
     try {
-        /** get requested data (data has been sent from request) */
-        const { customer, alamat, payment_method, status, orderlists, size } = request.body
-        const user = request.body.user
-        const uuid = uuidv4()
-        /** 
-         * assume that "orderlists" is an array of object that has keys:
-         * menuId, quantity, note
-         * */
+        const { customer, alamat, payment_method, status, orderlists, size, userId } = request.body;
 
-        /** loop details of order to check menu and count the total price */
-        let total_price = 0
-        for (let index = 0; index < orderlists.length; index++) {
-            const { productId } = orderlists[index]
-            const detailMenu = await prisma.product.findFirst({
-                where: {
-                    id: productId
-                }
-            })
-            if (!detailMenu) return response
-            .status(200).json({ status: false, message: `Menu with id ${productId} is not found` })
-            total_price += (detailMenu.price *  orderlists[index].quantity)
+        // Validasi enum
+        if (!payment_method || !status || !size) {
+            return response.status(400).json({
+                status: false,
+                message: `Field payment_method, status, dan size wajib diisi.`
+            });
         }
 
-        /** process to save new order */
-        const newOrder = await prisma.order.create({
-            data: { uuid, customer, alamat, total_price, payment_method, status, userId: user, size }
-        })
+        const uuid = uuidv4();
+        let total_price = 0;
 
-        /** loop details of Order to save in database */
         for (let index = 0; index < orderlists.length; index++) {
-            const uuid = uuidv4()
-            const { productId, quantity, note } = orderlists[index]
+            const { productId } = orderlists[index];
+            const detailMenu = await prisma.product.findFirst({ where: { id: productId } });
+            if (!detailMenu)
+                return response.status(200).json({ status: false, message: `Menu with id ${productId} is not found` });
+            total_price += (detailMenu.price * orderlists[index].quantity);
+        }
+
+        const newOrder = await prisma.order.create({
+            data: {
+                uuid,
+                customer,
+                alamat,
+                total_price,
+                payment_method,
+                status,
+                size,
+                userId,
+            },
+        });
+
+        for (let index = 0; index < orderlists.length; index++) {
+            const uuid = uuidv4();
+            const { productId, quantity, note } = orderlists[index];
             await prisma.orderList.create({
                 data: {
-                    uuid, orderId: newOrder.id, productId: Number(productId), quantity: Number(quantity), note
-                }
-            })
+                    uuid,
+                    orderId: newOrder.id,
+                    productId: Number(productId),
+                    quantity: Number(quantity),
+                    note,
+                },
+            });
         }
-        return response.json({
+
+        return response.status(200).json({
             status: true,
             data: newOrder,
-            message: `New Order has created`
-        }).status(200)
+            message: `New Order has been created`,
+        });
     } catch (error) {
-        return response
-            .json({
-                status: false,
-                message: `There is an error. ${error}`
-            })
-            .status(400)
+        return response.status(400).json({
+            status: false,
+            message: `There is an error. ${error}`,
+        });
     }
-}
+};
+
 
 export const updateStatusOrder = async (request: Request, response: Response) => {
     try {

@@ -1,68 +1,55 @@
 import { NextResponse, NextRequest } from "next/server";
 
-export const middleware = async (request: NextRequest) => {  
+export const middleware = async (request: NextRequest) => {
     const token = request.cookies.get("token")?.value;
     const role = request.cookies.get("role")?.value;
 
-    // console.log("Middleware running on:", request.nextUrl.pathname);
-    // console.log("Token:", token, "Role:", role);
-    
-    // Jika pengguna mencoba mengakses halaman root, arahkan ke login
+    // Redirect jika mengakses root /
     if (request.nextUrl.pathname === "/") {
-        const redirectAdmin = request.nextUrl.clone();
-        redirectAdmin.pathname = "/auth/login";
-        return NextResponse.redirect(redirectAdmin);
+        const redirectUrl = request.nextUrl.clone();
+        redirectUrl.pathname = "/auth/login";
+        return NextResponse.redirect(redirectUrl);
     }
 
-    // Cek apakah pengguna mencoba mengakses halaman manager
-    if (request.nextUrl.pathname.startsWith('/manager')) {
-        // Jika tidak ada token atau role, arahkan ke halaman login
-        if (!token || !role) {
-            const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/auth/login";
-            return NextResponse.redirect(redirectAdmin);
+    // Proteksi untuk /main (hanya boleh diakses jika sudah login)
+    if (request.nextUrl.pathname.startsWith("/main")) {
+        if (!token) {
+            const redirectUrl = request.nextUrl.clone();
+            redirectUrl.pathname = "/auth/login";
+            return NextResponse.redirect(redirectUrl);
         }
 
-        // Jika role bukan MANAGER, arahkan ke halaman login
-        if (role !== "MANAGER") {
-            const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/auth/login";
-            return NextResponse.redirect(redirectAdmin);
-        }
+        return NextResponse.next(); // izinkan jika sudah login
+    }
 
-        // Jika semua cek berhasil, lanjutkan ke halaman yang diminta
+    // Proteksi untuk halaman /manager
+    if (request.nextUrl.pathname.startsWith("/manager")) {
+        if (!token || role !== "MANAGER") {
+            const redirectUrl = request.nextUrl.clone();
+            redirectUrl.pathname = "/auth/login";
+            return NextResponse.redirect(redirectUrl);
+        }
         return NextResponse.next();
     }
 
-
-    // Cek apakah pengguna mencoba mengakses halaman cashier
-    if (request.nextUrl.pathname.startsWith('/user')) {
-        // Jika tidak ada token atau role, arahkan ke halaman login
-        if (!token || !role) {
-            const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/auth/login";
-            return NextResponse.redirect(redirectAdmin);
+    // Proteksi untuk halaman /user
+    if (request.nextUrl.pathname.startsWith("/user")) {
+        if (!token || role !== "USER") {
+            const redirectUrl = request.nextUrl.clone();
+            redirectUrl.pathname = "/auth/login";
+            return NextResponse.redirect(redirectUrl);
         }
-
-        // Jika role bukan CASHIER, arahkan ke halaman login
-        if (role !== "USER") {
-            const redirectAdmin = request.nextUrl.clone();
-            redirectAdmin.pathname = "/auth/login";
-            return NextResponse.redirect(redirectAdmin);
-        }
-
-        // Jika semua cek berhasil, lanjutkan ke halaman yang diminta
         return NextResponse.next();
     }
 
-    // Untuk semua halaman lainnya, lanjutkan tanpa perubahan
-    return NextResponse.next();
-}
+    return NextResponse.next(); // default: izinkan akses
+};
 
 export const config = {
     matcher: [
-        "/manager/:path*", // Menangkap semua rute di bawah /manager
+        "/manager/:path*",
         "/user/:path*",
-        "/" // Menangkap rute root
+        "/main/:path*", // Tambahkan ini agar /main diproteksi
+        "/" // root
     ],
-}
+};
