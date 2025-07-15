@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import logo from "../../../public/logo.png";
 import DarkMode from "."
 import Search from "./search";
@@ -26,6 +26,8 @@ const Navbar_Products: React.FC = () => {
   const [user, setUser] = useState<string>("");
   const [role, setRole] = useState<string>("");
   const router = useRouter();
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  const [isShow, setIsShow] = useState(false);
 
   const handleLogout = () => {
     removeCookie("token");
@@ -36,15 +38,35 @@ const Navbar_Products: React.FC = () => {
     router.replace(`/auth/login`);
   };
 
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
+        handlePopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     setProfile(getCookies("profile_picture") || "");
     setUser(getCookies("name") || "");
     setRole(getCookies("role") || "");
   }, []);
 
-  const handlePopup = () => {
-    setPopup(!popup)
-  }
+  const handlePopup = (state?: boolean) => {
+    if (typeof state === "boolean") {
+      setPopup(state);
+    } else {
+      setPopup((prev) => !prev);
+    }
+  };
+
 
   const getMenu = async () => {
     try {
@@ -85,7 +107,7 @@ const Navbar_Products: React.FC = () => {
             </div>
 
             {/* Profile */}
-            <button className='cursor-pointer' onClick={handlePopup}>
+            <button className='cursor-pointer' onClick={() => handlePopup()}>
               <img src={`${BASE_IMAGE_PROFILE}/${profile}`} alt="profile image" width={40} height={40} className="rounded-full" />
             </button>
 
@@ -99,6 +121,7 @@ const Navbar_Products: React.FC = () => {
       <AnimatePresence>
         {popup && (
           <motion.div
+            ref={sidebarRef}
             key="profile-popup"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
