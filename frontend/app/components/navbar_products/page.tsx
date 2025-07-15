@@ -115,7 +115,7 @@ const Navbar_Products: React.FC = () => {
             <div>
               <DarkMode />
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -144,17 +144,16 @@ const Navbar_Products: React.FC = () => {
                 <p className='text-xs text-gray-500 dark:text-gray-400'>{role}</p>
               </div>
             </div>
+
             {/* // Di dalam popup dropdown */}
             <div className="border-t pt-3 mt-3">
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-800 dark:text-red-400 rounded-md transition"
-              >
+                className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-800 dark:text-red-400 rounded-md transition">
                 <FiLogOut className="text-lg" />
                 <span>Logout</span>
               </button>
             </div>
-
           </motion.div>
         )}
       </AnimatePresence>
