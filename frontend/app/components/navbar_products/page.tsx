@@ -115,6 +115,7 @@ const Navbar_Products: React.FC = () => {
             <div>
               <DarkMode />
             </div>
+            
           </div>
         </div>
       </div>
