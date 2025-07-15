@@ -15,6 +15,7 @@ import { get } from "@/lib/bridge";
 import { IoMdArrowDropup } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/navigation';
+import { FiLogOut } from 'react-icons/fi';
 
 const Navbar_Products: React.FC = () => {
 
@@ -76,20 +77,6 @@ const Navbar_Products: React.FC = () => {
             </a>
           </div>
 
-          {/* Exit Button */}
-          <div className="absolute bottom-4 w-full p-4">
-            <div className="flex items-center space-x-2 text-[#333333] px-5">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-              </svg>
-              <button className="font-semibold cursor-pointer" onClick={handleLogout}>
-                Exit
-              </button>
-            </div>
-          </div>
-
           {/* search bar */}
           <div className='flex justify-between items-center gap-4'>
             <div className='relative group hidden sm:block'>
@@ -117,26 +104,33 @@ const Navbar_Products: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className='absolute top-full right-5 mt-2 w-52 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 z-50'
-          >
+            className='absolute top-full right-5 mt-2 w-52 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 z-50'>
             <div
               className='absolute -top-4 right-2 text-gray-700 dark:text-white text-2xl cursor-pointer'
-              onClick={() => setPopup(false)}
-            >
+              onClick={() => setPopup(false)}>
               <IoMdArrowDropup />
             </div>
-
             <div className='flex items-center gap-3 mb-3'>
               <img
                 src={`${BASE_IMAGE_PROFILE}/${profile}`}
                 alt='profile'
-                className='w-10 h-10 rounded-full object-cover border-2 border-primary'
-              />
+                className='w-10 h-10 rounded-full object-cover border-2 border-primary' />
               <div>
                 <p className='text-sm font-semibold text-gray-700 dark:text-white'>{user}</p>
                 <p className='text-xs text-gray-500 dark:text-gray-400'>{role}</p>
               </div>
             </div>
+            {/* // Di dalam popup dropdown */}
+            <div className="border-t pt-3 mt-3">
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-800 dark:text-red-400 rounded-md transition"
+              >
+                <FiLogOut className="text-lg" />
+                <span>Logout</span>
+              </button>
+            </div>
+
           </motion.div>
         )}
       </AnimatePresence>
