@@ -502,7 +502,7 @@ const OrderPage = () => {
                                             <InputGroupComponent
                                                 id="customer"
                                                 type="text"
-                                                value={orderForm.customer}
+                                                value={user || orderForm.customer}
                                                 onChange={(val: any) => setOrderForm({ ...orderForm, customer: val })}
                                                 required
                                                 label="Customer"
@@ -512,7 +512,7 @@ const OrderPage = () => {
                                             <InputGroupComponent
                                                 id="alamat"
                                                 type="text"
-                                                value={orderForm.alamat}
+                                                value={alamat || orderForm.alamat}
                                                 onChange={(val: any) => setOrderForm({ ...orderForm, alamat: val })}
                                                 required
                                                 label="Alamat"

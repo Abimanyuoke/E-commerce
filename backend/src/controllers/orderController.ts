@@ -39,61 +39,6 @@ export const getAllOrders = async (request: Request, response: Response) => {
     }
 }
 
-// export const createOrder = async (request: Request, response: Response) => {
-//     try {
-//         /** get requested data (data has been sent from request) */
-//         const { customer, alamat, payment_method, status, orderlists, size } = request.body
-//         const userId = request.body.userId
-//         const uuid = uuidv4()
-//         /** 
-//          * assume that "orderlists" is an array of object that has keys:
-//          * menuId, quantity, note
-//          * */
-
-//         /** loop details of order to check menu and count the total price */
-//         let total_price = 0
-//         for (let index = 0; index < orderlists.length; index++) {
-//             const { productId } = orderlists[index]
-//             const detailMenu = await prisma.product.findFirst({
-//                 where: {
-//                     id: productId
-//                 }
-//             })
-//             if (!detailMenu) return response
-//             .status(200).json({ status: false, message: `Menu with id ${productId} is not found` })
-//             total_price += (detailMenu.price *  orderlists[index].quantity)
-//         }
-
-//         /** process to save new order */
-//         const newOrder = await prisma.order.create({
-//             data: { uuid, customer, alamat, total_price, payment_method, status, userId: userId, size }
-//         })
-
-//         /** loop details of Order to save in database */
-//         for (let index = 0; index < orderlists.length; index++) {
-//             const uuid = uuidv4()
-//             const { productId, quantity, note } = orderlists[index]
-//             await prisma.orderList.create({
-//                 data: {
-//                     uuid, orderId: newOrder.id, productId: Number(productId), quantity: Number(quantity), note
-//                 }
-//             })
-//         }
-//         return response.json({
-//             status: true,
-//             data: newOrder,
-//             message: `New Order has created`
-//         }).status(200)
-//     } catch (error) {
-//         return response
-//             .json({
-//                 status: false,
-//                 message: `There is an error. ${error}`
-//             })
-//             .status(400)
-//     }
-// }
-
 export const createOrder = async (request: Request, response: Response) => {
     try {
         const { customer, alamat, payment_method, status, orderlists, size, userId } = request.body;
