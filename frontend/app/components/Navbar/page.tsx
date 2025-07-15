@@ -205,7 +205,7 @@ const Navbar: React.FC = () => {
           <div className='container flex justify-between items-center'>
             {/* Logo */}
             <a href="#" className={`font-bold text-2xl sm:text-3xl flex gap-2 items-center`}>
-              <img src={logo.src} alt="logo" className={`transition-all duration-300 ${scrolled ? "w-10" : "w-10"}`} />
+              <img src={logo.src} alt="logo" className={`transition-all duration-300 ${scrolled ? "w-12" : "w-10"}`} />
               <span
                 className={`transition-all duration-500 ease-in-out transform ${scrolled ? "translate-x-80  absolute text-3xl" : "translate-x-0 opacity-100"} text-2xl`}>
                 Shopsy
