@@ -10,3 +10,4 @@ Update:
 6. tambahin barang yang sudah dibeli | report
 7. perbaiki middle ware
 8. membuat untuk yang password
+9. menambahkan pakaian sesuai dengan main dan sub category
