@@ -4,25 +4,13 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaMusic } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md';
+import { BASE_IMAGE_PRODUCT } from '@/global';
 
 
 type Order = {
-    id: string;
-    uuid: string;
-    customer: string;
-    status: string;
-    size: string;
-    picture: string;
-    total_price: number;
-    orderLists: {
-        Product: {
-            id: string;
-            name: string;
-            price: number;
-            picture: string;
-        }[];
-    }[];
+    Product: any;
 };
+
 
 type Playlist = {
     uuid: string;
@@ -63,13 +51,18 @@ export default function PlaylistPage() {
                     <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {playlists.map((playlist) => (
                             <div
-                            key={playlist.uuid}
-                            onClick={() => router.push(`/playlist/${playlist.uuid}`)}
-                            className="cursor-pointer bg-white p-5 rounded-2xl shadow-md border hover:shadow-lg transition duration-200 group"
+                                key={playlist.uuid}
+                                onClick={() => router.push(`/playlist/${playlist.uuid}`)}
+                                className="cursor-pointer bg-white p-5 rounded-2xl shadow-md border hover:shadow-lg transition duration-200 group"
                             >
                                 {playlist.orderLists.map((order, idx) => (
-                                    <img key={idx} src={order.picture} alt="gambar" />
+                                    <img key={idx}
+                                        src={`${BASE_IMAGE_PRODUCT}/${order.Product.picture}`}
+                                        alt={"Gambar"}
+                                        className="w-full h-48 object-cover rounded-lg"
+                                    />
                                 ))}
+
 
                                 <div className="flex items-center gap-3 mb-3">
                                     <FaMusic className="text-orange-500 group-hover:scale-110 transition duration-200" size={28} />
