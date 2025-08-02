@@ -58,7 +58,7 @@ export const createOrder = async (request: Request, response: Response) => {
             const { productId } = orderlists[index];
             const detailMenu = await prisma.product.findFirst({ where: { id: productId } });
             if (!detailMenu)
-                return response.status(200).json({ status: false, message: `Menu with id ${productId} is not found` });
+                return response.status(200).json({ status: false, message: `Product with id ${productId} is not found` });
             total_price += (detailMenu.price * orderlists[index].quantity);
         }
 
