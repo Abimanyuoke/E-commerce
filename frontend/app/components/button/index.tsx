@@ -91,3 +91,14 @@ export const ButtonInfo = ({ children, type, onClick, className }: Props) => {
         </button>
     );
 };
+
+export const ButtonCart = ({ children, type, onClick, className }: Props) => {
+    return (
+        <button
+            className={`text-sm bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-full py-2 px-6 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out font-semibold tracking-wide ${className}`}
+            type={type}
+            onClick={onClick}>
+            {children}
+        </button>
+    );
+};

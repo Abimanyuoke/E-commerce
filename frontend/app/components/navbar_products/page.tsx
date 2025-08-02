@@ -16,6 +16,7 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/navigation';
 import { FiLogOut } from 'react-icons/fi';
+import { ButtonCart } from '../button';
 
 const Navbar_Products: React.FC = () => {
 
@@ -105,6 +106,10 @@ const Navbar_Products: React.FC = () => {
               <Search url={`/products`} search={""} />
               <IoMdSearch className='text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3' />
             </div>
+
+            <ButtonCart type="button" onClick={() => router.push(`cart/`)} className="block">
+              History Cart
+            </ButtonCart>
 
             {/* Profile */}
             <button className='cursor-pointer' onClick={() => handlePopup()}>

@@ -13,6 +13,7 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/navigation';
 import { FiLogOut } from 'react-icons/fi';
+import { ButtonCart } from '../button';
 
 const Navbar: React.FC = () => {
 
@@ -211,6 +212,10 @@ const Navbar: React.FC = () => {
                 Shopsy
               </span>
             </a>
+
+            <ButtonCart type="button" onClick={() => router.push(`cart/`)} className="block">
+              History Cart
+            </ButtonCart>
 
             {/* Search, Profile, DarkMode */}
             <div className='flex justify-between items-center gap-4'>
