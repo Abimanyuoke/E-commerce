@@ -20,7 +20,16 @@ export const getAllOrders = async (request: Request, response: Response) => {
             include: {
                 User: true,
                 orderLists: {
-                    include: { Product: true }
+                    include: {
+                        Product: {
+                            select: {
+                                id: true,
+                                name: true,
+                                price: true,
+                                picture: true
+                            }
+                        }
+                    }
                 }
             }
         })

@@ -5,10 +5,34 @@ import { useRouter } from 'next/navigation';
 import { FaMusic } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md';
 
+
+type Order = {
+    id: string;
+    uuid: string;
+    customer: string;
+    status: string;
+    size: string;
+    picture: string;
+    total_price: number;
+    orderLists: {
+        Product: {
+            id: string;
+            name: string;
+            price: number;
+            picture: string;
+        }[];
+    }[];
+};
+
 type Playlist = {
     uuid: string;
-    playlist_name: string;
-    song_count: number;
+    customer: string;
+    status: string;
+    size: string;
+    picture: string;
+    total_price: number;
+    alamat: string;
+    orderLists: Order[];
 };
 
 export default function PlaylistPage() {
@@ -17,7 +41,7 @@ export default function PlaylistPage() {
 
     useEffect(() => {
         const fetchPlaylists = async () => {
-            const res = await fetch('https://learn.smktelkom-mlg.sch.id/ukl2/playlists');
+            const res = await fetch('http://localhost:7000/order');
             const data = await res.json();
             setPlaylists(data.data);
         };
@@ -39,17 +63,24 @@ export default function PlaylistPage() {
                     <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {playlists.map((playlist) => (
                             <div
-                                key={playlist.uuid}
-                                onClick={() => router.push(`/playlist/${playlist.uuid}`)}
-                                className="cursor-pointer bg-white p-5 rounded-2xl shadow-md border hover:shadow-lg transition duration-200 group"
+                            key={playlist.uuid}
+                            onClick={() => router.push(`/playlist/${playlist.uuid}`)}
+                            className="cursor-pointer bg-white p-5 rounded-2xl shadow-md border hover:shadow-lg transition duration-200 group"
                             >
+                                {playlist.orderLists.map((order, idx) => (
+                                    <img key={idx} src={order.picture} alt="gambar" />
+                                ))}
+
                                 <div className="flex items-center gap-3 mb-3">
                                     <FaMusic className="text-orange-500 group-hover:scale-110 transition duration-200" size={28} />
-                                    <h2 className="text-lg font-semibold text-gray-800 group-hover:text-orange-600">
-                                        {playlist.playlist_name}
+                                    <h2 className="text-lg font-semibold text-gray-800 group-hover:text-orange-600 flex gap-4">
+                                        {playlist.customer}
+                                        {playlist.size}
+                                        {playlist.status}
+                                        {playlist.alamat}
                                     </h2>
                                 </div>
-                                <p className="text-sm text-gray-600">🎵 {playlist.song_count} songs</p>
+                                <p className="text-sm text-gray-600">🎵 {playlist.total_price} songs</p>
                             </div>
                         ))}
                     </div>

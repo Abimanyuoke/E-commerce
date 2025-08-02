@@ -213,10 +213,6 @@ const Navbar: React.FC = () => {
               </span>
             </a>
 
-            <ButtonCart type="button" onClick={() => router.push(`cart/`)} className="block">
-              History Cart
-            </ButtonCart>
-
             {/* Search, Profile, DarkMode */}
             <div className='flex justify-between items-center gap-4'>
               {/* Search */}
