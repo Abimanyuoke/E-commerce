@@ -48,6 +48,50 @@ export const getAllOrders = async (request: Request, response: Response) => {
     }
 }
 
+export const getOrderByUUID = async (request: Request, response: Response) => {
+    const { uuid } = request.params;
+
+    try {
+        const order = await prisma.order.findUnique({
+            where: { uuid },
+            include: {
+                User: true,
+                orderLists: {
+                    include: {
+                        Product: {
+                            select: {
+                                id: true,
+                                name: true,
+                                price: true,
+                                picture: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        if (!order) {
+            return response.status(404).json({
+                status: false,
+                message: `Order not found with uuid ${uuid}`
+            });
+        }
+
+        return response.status(200).json({
+            status: true,
+            data: order,
+            message: `Order has been retrieved`
+        });
+    } catch (error) {
+        return response.status(500).json({
+            status: false,
+            message: `Server error: ${error}`
+        });
+    }
+};
+
+
 export const createOrder = async (request: Request, response: Response) => {
     try {
         const { customer, alamat, payment_method, status, orderlists, size, userId } = request.body;

@@ -92,18 +92,18 @@ export default function PlaylistPage() {
                     <p className="text-center text-gray-500 text-sm">Tidak ada pesanan dengan status "{selectedStatus}".</p>
                 ) : (
                     <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-                        {filtered.map((playlist) => {
-                            const productImage = playlist.orderLists?.[0]?.Product?.picture;
+                        {filtered.map((cart) => {
+                            const productImage = cart.orderLists?.[0]?.Product?.picture;
                             return (
                                 <div
-                                    key={playlist.uuid}
+                                    key={cart.uuid}
                                     className="bg-white rounded-2xl shadow-md border group transition-all duration-300 overflow-hidden flex flex-col max-w-md"
                                 >
                                     {productImage && (
                                         <img
                                             src={`${BASE_IMAGE_PRODUCT}/${productImage}`}
                                             alt="Product"
-                                            className="w-[100px] h-[100px] object-cover mx-auto mt-4 rounded-lg group-hover:scale-105 transition-transform duration-300"
+                                            className="max-w-[150px] min-h-[150px] object-cover mx-auto mt-4 rounded-lg group-hover:scale-105 transition-transform duration-300"
                                         />
                                     )}
 
@@ -111,30 +111,29 @@ export default function PlaylistPage() {
                                         <div>
                                             <div className="flex justify-between items-center mb-1">
                                                 <h2 className="text-lg font-bold text-gray-800 group-hover:text-orange-600 truncate">
-                                                    {playlist.customer}
+                                                    {cart.customer}
                                                 </h2>
                                                 <span className={`px-2 py-1 text-xs rounded-full font-semibold ${
-                                                    playlist.status === 'NEW'
+                                                    cart.status === 'NEW'
                                                         ? 'bg-yellow-100 text-yellow-700'
-                                                        : playlist.status === 'PROCESSING'
+                                                        : cart.status === 'PROCESSING'
                                                         ? 'bg-blue-100 text-blue-700'
                                                         : 'bg-green-100 text-green-700'
                                                 }`}>
-                                                    {playlist.status}
+                                                    {cart.status}
                                                 </span>
                                             </div>
-                                            <p className="text-sm text-gray-600">Ukuran: <b>{playlist.size}</b></p>
-                                            <p className="text-sm text-gray-600 truncate">Alamat: {playlist.alamat}</p>
+                                            <p className="text-sm text-gray-600">Ukuran: <b>{cart.size}</b></p>
+                                            <p className="text-sm text-gray-600 truncate">Alamat: {cart.alamat}</p>
                                             <p className="text-sm text-gray-700 font-medium mt-1">
-                                                Total: Rp{playlist.total_price.toLocaleString()}
+                                                Total: Rp{cart.total_price.toLocaleString()}
                                             </p>
                                         </div>
 
                                         <div className="mt-4 flex justify-between items-center">
                                             <button
-                                                onClick={() => router.push(`/playlist/${playlist.uuid}`)}
-                                                className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded-md transition"
-                                            >
+                                                onClick={() => router.push(`/cart/${cart.uuid}`)}
+                                                className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded-md transition">
                                                 Lihat Detail
                                             </button>
                                             <FaBoxOpen className="text-orange-400" />
