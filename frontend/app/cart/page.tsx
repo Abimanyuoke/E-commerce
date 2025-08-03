@@ -2,17 +2,22 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaMusic } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md';
 import { BASE_IMAGE_PRODUCT } from '@/global';
-
+import { FaBoxOpen } from 'react-icons/fa';
 
 type Product = {
+    name: string;
+    price: number;
     picture: string;
 };
 
-type Order = {
+type OrderList = {
     Product: Product;
+};
+
+type User = {
+    name: string;
 };
 
 type Playlist = {
@@ -20,15 +25,18 @@ type Playlist = {
     customer: string;
     status: string;
     size: string;
-    picture: string;
     total_price: number;
     alamat: string;
-    User: any;
-    orderLists: Order[];
+    User: User;
+    orderLists: OrderList[];
 };
+
+const STATUS_OPTIONS = ['ALL', 'NEW', 'PROCESSING', 'DONE'];
 
 export default function PlaylistPage() {
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
+    const [filtered, setFiltered] = useState<Playlist[]>([]);
+    const [selectedStatus, setSelectedStatus] = useState('ALL');
     const router = useRouter();
 
     useEffect(() => {
@@ -37,56 +45,104 @@ export default function PlaylistPage() {
                 const res = await fetch('http://localhost:7000/order');
                 const data = await res.json();
                 setPlaylists(data.data || []);
+                setFiltered(data.data || []);
             } catch (error) {
-                console.error("Failed to fetch playlists:", error);
+                console.error('Failed to fetch playlists:', error);
             }
         };
 
         fetchPlaylists();
     }, []);
 
-    
+    useEffect(() => {
+        if (selectedStatus === 'ALL') {
+            setFiltered(playlists);
+        } else {
+            setFiltered(playlists.filter((p) => p.status === selectedStatus));
+        }
+    }, [selectedStatus, playlists]);
 
     return (
-        <div className="min-h-screen pt-24 px-6">
-            <div className="max-w-4xl mx-auto space-y-6">
+        <div className="min-h-screen pt-24 px-6 bg-gray-50">
+            <div className="max-w-6xl mx-auto space-y-8">
                 <h1 className="text-3xl font-bold text-center text-orange-700 flex items-center justify-center gap-2">
                     <MdPlaylistPlay size={30} />
-                    My Playlists
+                    Riwayat Pemesanan
                 </h1>
 
-                {playlists.length === 0 ? (
-                    <p className="text-center text-gray-500 text-sm">No playlists found.</p>
+                {/* FILTER BUTTON */}
+                <div className="flex justify-center gap-2 flex-wrap">
+                    {STATUS_OPTIONS.map((status) => (
+                        <button
+                            key={status}
+                            onClick={() => setSelectedStatus(status)}
+                            className={`px-4 py-1 text-sm rounded-full border transition-all ${
+                                selectedStatus === status
+                                    ? 'bg-orange-500 text-white border-orange-500'
+                                    : 'text-gray-700 bg-white hover:bg-orange-100 border-gray-300'
+                            }`}
+                        >
+                            {status}
+                        </button>
+                    ))}
+                </div>
+
+                {/* CARD GRID */}
+                {filtered.length === 0 ? (
+                    <p className="text-center text-gray-500 text-sm">Tidak ada pesanan dengan status "{selectedStatus}".</p>
                 ) : (
-                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {playlists.map((playlist) => (
-                            <div
-                                key={playlist.uuid}
-                                onClick={() => router.push(`/playlist/${playlist.uuid}`)}
-                                className="cursor-pointer bg-white p-5 rounded-2xl shadow-md border hover:shadow-lg transition duration-200 group"
-                            >
-                                {playlist.orderLists.map((order, idx) => (
-                                    <img key={idx}
-                                        src={`${BASE_IMAGE_PRODUCT}/${order.Product.picture}`}
-                                        alt={"Gambar"}
-                                        className="w-full h-48 object-cover rounded-lg"
-                                    />
-                                ))}
+                    <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+                        {filtered.map((playlist) => {
+                            const productImage = playlist.orderLists?.[0]?.Product?.picture;
+                            return (
+                                <div
+                                    key={playlist.uuid}
+                                    className="bg-white rounded-2xl shadow-md border group transition-all duration-300 overflow-hidden flex flex-col max-w-md"
+                                >
+                                    {productImage && (
+                                        <img
+                                            src={`${BASE_IMAGE_PRODUCT}/${productImage}`}
+                                            alt="Product"
+                                            className="w-[100px] h-[100px] object-cover mx-auto mt-4 rounded-lg group-hover:scale-105 transition-transform duration-300"
+                                        />
+                                    )}
 
+                                    <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                                        <div>
+                                            <div className="flex justify-between items-center mb-1">
+                                                <h2 className="text-lg font-bold text-gray-800 group-hover:text-orange-600 truncate">
+                                                    {playlist.customer}
+                                                </h2>
+                                                <span className={`px-2 py-1 text-xs rounded-full font-semibold ${
+                                                    playlist.status === 'NEW'
+                                                        ? 'bg-yellow-100 text-yellow-700'
+                                                        : playlist.status === 'PROCESSING'
+                                                        ? 'bg-blue-100 text-blue-700'
+                                                        : 'bg-green-100 text-green-700'
+                                                }`}>
+                                                    {playlist.status}
+                                                </span>
+                                            </div>
+                                            <p className="text-sm text-gray-600">Ukuran: <b>{playlist.size}</b></p>
+                                            <p className="text-sm text-gray-600 truncate">Alamat: {playlist.alamat}</p>
+                                            <p className="text-sm text-gray-700 font-medium mt-1">
+                                                Total: Rp{playlist.total_price.toLocaleString()}
+                                            </p>
+                                        </div>
 
-                                <div className="flex items-center gap-3 mb-3">
-                                    <FaMusic className="text-orange-500 group-hover:scale-110 transition duration-200" size={28} />
-                                    <h2 className="text-lg font-semibold text-gray-800 group-hover:text-orange-600 flex gap-4">
-                                        {playlist.customer}
-                                        {playlist.size}
-                                        {playlist.status}
-                                        {playlist.alamat}
-                                        {playlist.User?.name}
-                                    </h2>
+                                        <div className="mt-4 flex justify-between items-center">
+                                            <button
+                                                onClick={() => router.push(`/playlist/${playlist.uuid}`)}
+                                                className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded-md transition"
+                                            >
+                                                Lihat Detail
+                                            </button>
+                                            <FaBoxOpen className="text-orange-400" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <p className="text-sm text-gray-600">🎵 {playlist.total_price} songs</p>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
             </div>
