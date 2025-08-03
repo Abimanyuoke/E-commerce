@@ -7,10 +7,13 @@ import { MdPlaylistPlay } from 'react-icons/md';
 import { BASE_IMAGE_PRODUCT } from '@/global';
 
 
-type Order = {
-    Product: any;
+type Product = {
+    picture: string;
 };
 
+type Order = {
+    Product: Product;
+};
 
 type Playlist = {
     uuid: string;
@@ -20,6 +23,7 @@ type Playlist = {
     picture: string;
     total_price: number;
     alamat: string;
+    User: any;
     orderLists: Order[];
 };
 
@@ -29,13 +33,19 @@ export default function PlaylistPage() {
 
     useEffect(() => {
         const fetchPlaylists = async () => {
-            const res = await fetch('http://localhost:7000/order');
-            const data = await res.json();
-            setPlaylists(data.data);
+            try {
+                const res = await fetch('http://localhost:7000/order');
+                const data = await res.json();
+                setPlaylists(data.data || []);
+            } catch (error) {
+                console.error("Failed to fetch playlists:", error);
+            }
         };
 
         fetchPlaylists();
     }, []);
+
+    
 
     return (
         <div className="min-h-screen pt-24 px-6">
@@ -71,6 +81,7 @@ export default function PlaylistPage() {
                                         {playlist.size}
                                         {playlist.status}
                                         {playlist.alamat}
+                                        {playlist.User?.name}
                                     </h2>
                                 </div>
                                 <p className="text-sm text-gray-600">🎵 {playlist.total_price} songs</p>
