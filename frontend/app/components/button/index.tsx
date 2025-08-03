@@ -7,7 +7,7 @@ type Props = {
     className?: string
 }
 
-export const ButtonSuccess = ({ children, type, onClick,  className }: Props) => {
+export const ButtonSuccess = ({ children, type, onClick, className }: Props) => {
     return (
         <button className={`text-sm bg-green-600 text-white rounded-md py-2 px-4 hover:bg-green-700 font-bold ${className}`} type={type} onClick={() => { if (onClick) onClick() }}>
             {children}
@@ -92,12 +92,17 @@ export const ButtonInfo = ({ children, type, onClick, className }: Props) => {
     );
 };
 
-export const ButtonCart = ({ children, type, onClick, className }: Props) => {
+import { FaShoppingCart } from "react-icons/fa";
+
+export const ButtonCart = ({ children, type = "button", onClick, className }: Props) => {
+
+
     return (
         <button
-            className={`text-sm bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-full py-2 px-6 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out font-semibold tracking-wide ${className}`}
             type={type}
-            onClick={onClick}>
+            onClick={onClick}
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-semibold text-sm bg-gradient-to-br from-pink-500 via-indigo-500 to-blue-500 shadow-lg shadow-indigo-300/50 transition duration-300 ease-in-out hover:scale-105 hover:shadow-indigo-500/60 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-300`}>
+            <FaShoppingCart size={16} />
             {children}
         </button>
     );
