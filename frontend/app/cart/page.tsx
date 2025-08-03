@@ -20,7 +20,7 @@ type User = {
     name: string;
 };
 
-type Playlist = {
+type Carts= {
     uuid: string;
     customer: string;
     status: string;
@@ -34,24 +34,24 @@ type Playlist = {
 const STATUS_OPTIONS = ['ALL', 'NEW', 'PROCESSING', 'DONE'];
 
 export default function PlaylistPage() {
-    const [playlists, setPlaylists] = useState<Playlist[]>([]);
-    const [filtered, setFiltered] = useState<Playlist[]>([]);
+    const [playlists, setCarts] = useState<Carts[]>([]);
+    const [filtered, setFiltered] = useState<Carts[]>([]);
     const [selectedStatus, setSelectedStatus] = useState('ALL');
     const router = useRouter();
 
     useEffect(() => {
-        const fetchPlaylists = async () => {
+        const fetchCarts = async () => {
             try {
                 const res = await fetch('http://localhost:7000/order');
                 const data = await res.json();
-                setPlaylists(data.data || []);
+                setCarts(data.data || []);
                 setFiltered(data.data || []);
             } catch (error) {
                 console.error('Failed to fetch playlists:', error);
             }
         };
 
-        fetchPlaylists();
+        fetchCarts();
     }, []);
 
     useEffect(() => {
