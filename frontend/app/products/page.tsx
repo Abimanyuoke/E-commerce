@@ -21,6 +21,7 @@ import Navbar_Products from "../components/navbar_products/page";
 import { MdOutlineQrCodeScanner } from "react-icons/md";
 import { BsPiggyBank } from "react-icons/bs";
 import CardSelectSize from "../components/size_selected";
+import { FiLoader } from "react-icons/fi";
 
 const OrderPage = () => {
     const searchParams = useSearchParams();
@@ -48,6 +49,13 @@ const OrderPage = () => {
     const [order, setOrder] = useState(false);
     const [selectedOrderIds, setSelectedOrderIds] = useState<number[]>([]);
     const [orderNote, setOrderNote] = useState<string>("");
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const [orderForm, setOrderForm] = useState<IOrder>({
         id: 0,
@@ -350,7 +358,12 @@ const OrderPage = () => {
 
                 {/* ----------------- LIST PRODUCT ----------------- */}
                 {loading ? (
-                    <p className="text-white">Loading...</p>
+                    <div className="flex items-center justify-center min-h-screen">
+                        <div className="flex flex-col items-center gap-2">
+                            <FiLoader className="animate-spin text-black text-4xl" />
+                            <p className="text-white text-lg">Loading...</p>
+                        </div>
+                    </div>
                 ) : product.length === 0 ? (
                     <AlertToko title="Informasi">No data available</AlertToko>
                 ) : (
