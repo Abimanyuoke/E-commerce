@@ -34,7 +34,7 @@ type Carts= {
 const STATUS_OPTIONS = ['ALL', 'NEW', 'PROCESSING', 'DONE'];
 
 export default function PlaylistPage() {
-    const [playlists, setCarts] = useState<Carts[]>([]);
+    const [carts, setCarts] = useState<Carts[]>([]);
     const [filtered, setFiltered] = useState<Carts[]>([]);
     const [selectedStatus, setSelectedStatus] = useState('ALL');
     const router = useRouter();
@@ -56,11 +56,11 @@ export default function PlaylistPage() {
 
     useEffect(() => {
         if (selectedStatus === 'ALL') {
-            setFiltered(playlists);
+            setFiltered(carts);
         } else {
-            setFiltered(playlists.filter((p) => p.status === selectedStatus));
+            setFiltered(carts.filter((p) => p.status === selectedStatus));
         }
-    }, [selectedStatus, playlists]);
+    }, [selectedStatus, carts]);
 
     return (
         <div className="min-h-screen pt-24 px-6 bg-gray-50">
