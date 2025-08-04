@@ -15,7 +15,6 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaMoneyBill, FaTrashAlt } from "react-icons/fa";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import CardSelect from "../components/card";
-import SizeSelectCard from "../components/size_selected";
 import Image from "next/image";
 import axios from "axios";
 import Navbar_Products from "../components/navbar_products/page";
@@ -27,7 +26,6 @@ const OrderPage = () => {
     const searchParams = useSearchParams();
     const search = searchParams.get("search") || "";
     const router = useRouter();
-    // const [selectedSize] = useState("M");
     const alamat = getCookies("alamat");
     const user = getCookies("name");
 
