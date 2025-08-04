@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { BASE_IMAGE_PRODUCT, BASE_IMAGE_PROFILE } from '@/global';
+import { useRouter } from 'next/navigation';
+import { FaArrowLeft } from 'react-icons/fa';
 
 type Product = {
     id: number;
@@ -43,6 +45,7 @@ type Order = {
 export default function OrderDetailPage() {
     const { id } = useParams();
     const [order, setOrder] = useState<Order | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -63,7 +66,15 @@ export default function OrderDetailPage() {
     }
 
     return (
-        <div className="min-h-screen pt-24 px-6 max-w-5xl mx-auto space-y-10">
+        <div className="min-h-screen pt-24 px-6 max-w-5xl mx-auto space-y-10 relative">
+
+            <button
+                onClick={() => router.back()}
+                className="absolute top-6 left-6 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow hover:bg-orange-50 hover:text-orange-600 text-gray-700 transition-all duration-300 border border-gray-200">
+                <FaArrowLeft className="text-lg" />
+                <span className="font-medium text-base">Back</span>
+            </button>
+
             <h1 className="text-4xl font-bold text-center text-orange-600">Order Details</h1>
 
             {/* Customer Info */}
