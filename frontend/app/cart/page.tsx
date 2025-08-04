@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MdPlaylistPlay } from 'react-icons/md';
 import { BASE_IMAGE_PRODUCT } from '@/global';
-import { FaBoxOpen } from 'react-icons/fa';
+import { FaArrowLeft, FaBoxOpen } from 'react-icons/fa';
+import { FaAngleLeft } from "react-icons/fa6";
 
 type Product = {
     name: string;
@@ -20,7 +21,7 @@ type User = {
     name: string;
 };
 
-type Carts= {
+type Carts = {
     uuid: string;
     customer: string;
     status: string;
@@ -63,7 +64,14 @@ export default function PlaylistPage() {
     }, [selectedStatus, carts]);
 
     return (
-        <div className="min-h-screen pt-24 px-6 bg-gray-50">
+        <div className="min-h-screen pt-24 px-6 bg-gray-50 relative">
+            <button
+                onClick={() => router.back()}
+                className="absolute top-6 left-6 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow hover:bg-orange-50 hover:text-orange-600 text-gray-700 transition-all duration-300 border border-gray-200">
+                <FaArrowLeft className="text-lg" />
+                <span className="font-medium text-base">Back</span>
+            </button>
+
             <div className="max-w-6xl mx-auto space-y-8">
                 <h1 className="text-3xl font-bold text-center text-orange-700 flex items-center justify-center gap-2">
                     <MdPlaylistPlay size={30} />
@@ -76,11 +84,10 @@ export default function PlaylistPage() {
                         <button
                             key={status}
                             onClick={() => setSelectedStatus(status)}
-                            className={`px-4 py-1 text-sm rounded-full border transition-all ${
-                                selectedStatus === status
-                                    ? 'bg-orange-500 text-white border-orange-500'
-                                    : 'text-gray-700 bg-white hover:bg-orange-100 border-gray-300'
-                            }`}
+                            className={`px-4 py-1 text-sm rounded-full border transition-all ${selectedStatus === status
+                                ? 'bg-orange-500 text-white border-orange-500'
+                                : 'text-gray-700 bg-white hover:bg-orange-100 border-gray-300'
+                                }`}
                         >
                             {status}
                         </button>
@@ -113,13 +120,12 @@ export default function PlaylistPage() {
                                                 <h2 className="text-lg font-bold text-gray-800 group-hover:text-orange-600 truncate">
                                                     {cart.customer}
                                                 </h2>
-                                                <span className={`px-2 py-1 text-xs rounded-full font-semibold ${
-                                                    cart.status === 'NEW'
-                                                        ? 'bg-yellow-100 text-yellow-700'
-                                                        : cart.status === 'PROCESSING'
+                                                <span className={`px-2 py-1 text-xs rounded-full font-semibold ${cart.status === 'NEW'
+                                                    ? 'bg-yellow-100 text-yellow-700'
+                                                    : cart.status === 'PROCESSING'
                                                         ? 'bg-blue-100 text-blue-700'
                                                         : 'bg-green-100 text-green-700'
-                                                }`}>
+                                                    }`}>
                                                     {cart.status}
                                                 </span>
                                             </div>
