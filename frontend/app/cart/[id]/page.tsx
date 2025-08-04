@@ -59,64 +59,72 @@ export default function OrderDetailPage() {
     }, [id]);
 
     if (!order) {
-        return <div className="p-10 text-center">Loading...</div>;
+        return <div className="p-10 text-center text-gray-600">Loading...</div>;
     }
 
     return (
-        <div className="min-h-screen pt-24 px-6 max-w-4xl mx-auto space-y-8">
-            <h1 className="text-3xl font-bold text-orange-600 text-center">Order Detail</h1>
+        <div className="min-h-screen pt-24 px-6 max-w-5xl mx-auto space-y-10">
+            <h1 className="text-4xl font-bold text-center text-orange-600">Order Details</h1>
 
-            <div className="bg-white shadow-md p-6 rounded-xl">
-                <h2 className="text-xl font-semibold mb-4">Customer Info</h2>
-                <div className="flex items-center gap-4">
+            {/* Customer Info */}
+            <section className="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 className="text-xl font-semibold mb-6 border-b pb-2">👤 Customer Information</h2>
+                <div className="flex gap-6 items-center">
                     <img
                         src={`${BASE_IMAGE_PROFILE}/${order.User.profile_picture}`}
                         alt="Profile"
-                        className="w-16 h-16 rounded-full object-cover"
+                        className="w-20 h-20 rounded-full object-cover border-2 border-orange-500"
                     />
-                    <div>
-                        <p className="font-semibold">{order.User.name}</p>
-                        <p className="text-sm text-gray-500">{order.User.email}</p>
-                        <p className="text-sm text-gray-500">{order.User.telephone}</p>
-                        <p className="text-sm text-gray-500">{order.User.alamat}</p>
+                    <div className="space-y-1">
+                        <p className="font-semibold text-lg">{order.User.name}</p>
+                        <p className="text-gray-600 text-sm">{order.User.email}</p>
+                        <p className="text-gray-600 text-sm">{order.User.telephone}</p>
+                        <p className="text-gray-600 text-sm">{order.User.alamat}</p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div className="bg-white shadow-md p-6 rounded-xl">
-                <h2 className="text-xl font-semibold mb-4">Order Info</h2>
-                <div className="space-y-1">
-                    <p><span className="font-semibold">UUID:</span> {order.uuid}</p>
-                    <p><span className="font-semibold">Customer:</span> {order.customer}</p>
-                    <p><span className="font-semibold">Alamat:</span> {order.alamat}</p>
-                    <p><span className="font-semibold">Total Price:</span> Rp{order.total_price.toLocaleString()}</p>
-                    <p><span className="font-semibold">Payment Method:</span> {order.payment_method}</p>
-                    <p><span className="font-semibold">Size:</span> {order.size}</p>
-                    <p><span className="font-semibold">Status:</span> {order.status}</p>
-                    <p><span className="font-semibold">Created At:</span> {new Date(order.createdAt).toLocaleString()}</p>
+            {/* Order Info */}
+            <section className="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 className="text-xl font-semibold mb-6 border-b pb-2">📦 Order Information</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+                    <p><span className="font-medium">UUID:</span> {order.uuid}</p>
+                    <p><span className="font-medium">Customer:</span> {order.customer}</p>
+                    <p><span className="font-medium">Alamat:</span> {order.alamat}</p>
+                    <p><span className="font-medium">Total Price:</span> <span className="text-orange-600 font-semibold">Rp{order.total_price.toLocaleString()}</span></p>
+                    <p><span className="font-medium">Payment:</span> {order.payment_method}</p>
+                    <p><span className="font-medium">Size:</span> {order.size}</p>
+                    <p>
+                        <span className="font-medium">Status:</span>
+                        <span className={`ml-2 px-2 py-1 text-xs rounded-full font-semibold ${order.status === 'completed' ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'}`}>
+                            {order.status}
+                        </span>
+                    </p>
+                    <p><span className="font-medium">Created:</span> {new Date(order.createdAt).toLocaleString()}</p>
                 </div>
-            </div>
+            </section>
 
-            <div className="bg-white shadow-md p-6 rounded-xl">
-                <h2 className="text-xl font-semibold mb-4">Ordered Products</h2>
-                <div className="space-y-4">
+            {/* Order List */}
+            <section className="bg-white p-6 rounded-2xl shadow-lg">
+                <h2 className="text-xl font-semibold mb-6 border-b pb-2">🛒 Ordered Products</h2>
+                <div className="space-y-6">
                     {order.orderLists.map((item) => (
-                        <div key={item.uuid} className="flex gap-4 items-center border-b pb-4">
+                        <div key={item.uuid} className="flex gap-6 items-start border-b pb-4">
                             <img
                                 src={`${BASE_IMAGE_PRODUCT}/${item.Product.picture}`}
                                 alt={item.Product.name}
-                                className="w-24 h-24 object-cover rounded-lg"
+                                className="w-[150px] h-[200px] object-cover rounded-lg border p-4"
                             />
-                            <div>
-                                <p className="font-semibold">{item.Product.name}</p>
-                                <p className="text-sm text-gray-500">Rp{item.Product.price.toLocaleString()}</p>
-                                <p className="text-sm">Qty: {item.quantity}</p>
-                                <p className="text-sm italic text-gray-500">Note: {item.note}</p>
+                            <div className="space-y-1">
+                                <p className="font-semibold text-lg">{item.Product.name}</p>
+                                <p className="text-sm text-gray-600">Rp{item.Product.price.toLocaleString()}</p>
+                                <p className="text-sm">Qty: <span className="font-medium">{item.quantity}</span></p>
+                                <p className="text-sm italic text-gray-500">Note: {item.note || '—'}</p>
                             </div>
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
         </div>
     );
 }
