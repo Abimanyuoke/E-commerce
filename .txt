@@ -1,13 +1,6 @@
 Update:
 
-1. Tambahin Transaksi Bank sama Icon
-2. Untuk yang profile bisa diklik diluar hilang
-3. Hilangin untuk yang alamat di order karena pakai alamat yang default
-4. Tambahin  Ukuran untuk baju di order
-
-
-5. tambahin tombol exit
-6. tambahin barang yang sudah dibeli | report
-7. perbaiki middle ware
-8. membuat untuk yang password
-9. menambahkan pakaian sesuai dengan main dan sub category
+1. Tambahkan untuk folder manager
+2. Membuat sebuah dashboard
+3. Membuat sebuah form untuk menambahkan data
+4. Membuat tampilan yang bisa untuk 
