@@ -4,3 +4,4 @@ Update:
 2. Membuat sebuah dashboard
 3. Membuat sebuah form untuk menambahkan data
 4. Membuat tampilan yang bisa untuk 
+5. Membuat sebuah tampilan sebuah manager
