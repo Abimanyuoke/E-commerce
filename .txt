@@ -1,7 +1,19 @@
-Update:
+Update Big:
+6. Tambahkan waktu pengiriman ( Shopee )
+7. Tambahkan Warna
+9. Size
+10. Share dan Favorit
+11. Tambahan Ke Keranjang
+12. Bawahnya ada produk lagi 
+13. Tambahkan Spesifikasi Produk ( Shopee ) 
+
+
+Update Opsional:
 
 1. Tambahkan untuk folder manager
 2. Membuat sebuah dashboard
 3. Membuat sebuah form untuk menambahkan data
 4. Membuat tampilan yang bisa untuk 
 5. Membuat sebuah tampilan sebuah manager
+
+
