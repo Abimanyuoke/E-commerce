@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json())
 
 app.get(`/`, getAllOrders)
-app.get('/:uuid', getOrderByUUID); // ✅ ini penting!
+app.get('/:uuid', getOrderByUUID);
 app.post(`/`, [verifyAddOrder], createOrder)
 app.put(`/:id`, [verifyToken, verifyRole(["MANAGER"]), verifyEditStatus], updateStatusOrder)
 app.delete(`/:id`, [verifyToken, verifyRole(["MANAGER"])], deleteOrder)
