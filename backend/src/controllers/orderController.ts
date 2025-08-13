@@ -23,7 +23,6 @@ export const getAllOrders = async (request: Request, response: Response) => {
                     include: {
                         Product: {
                             select: {
-                                id: true,
                                 name: true,
                                 price: true,
                                 picture: true
