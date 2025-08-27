@@ -34,7 +34,7 @@ type Carts = {
 
 const STATUS_OPTIONS = ['ALL', 'NEW', 'PROCESSING', 'DONE'];
 
-export default function PlaylistPage() {
+export default function CartsPage() {
     const [carts, setCarts] = useState<Carts[]>([]);
     const [filtered, setFiltered] = useState<Carts[]>([]);
     const [selectedStatus, setSelectedStatus] = useState('ALL');
