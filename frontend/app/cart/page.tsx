@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { MdPlaylistPlay } from 'react-icons/md';
 import { BASE_IMAGE_PRODUCT } from '@/global';
 import { FaArrowLeft, FaBoxOpen } from 'react-icons/fa';
-import { FaAngleLeft } from "react-icons/fa6";
 
 type Product = {
     name: string;
