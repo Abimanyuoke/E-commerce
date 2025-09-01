@@ -1,27 +1,27 @@
 "use client";
 
 import { useState, useEffect, useRef, FormEvent } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { IProduct, IOrder } from "@/app/types";
-import { getCookies } from "@/lib/client-cookies";
 import { BASE_API_URL, BASE_IMAGE_PRODUCT } from "../../global";
-import { get } from "@/lib/bridge";
-import { AlertToko } from "../components/alert";
 import { ButtonPrimary, ButtonDanger, ButtonOrder } from "../components/button";
-import { TiShoppingCart } from "react-icons/ti";
-import { toast } from "sonner";
+import { useSearchParams, useRouter } from "next/navigation";
 import { InputGroupComponent, TextGroupComponent } from "../components/InputComponent";
+import { MdOutlineQrCodeScanner } from "react-icons/md";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaMoneyBill, FaTrashAlt } from "react-icons/fa";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
-import CardSelect from "../components/card";
+import { IProduct, IOrder } from "@/app/types";
+import { FiLoader } from "react-icons/fi";
+import { getCookies } from "@/lib/client-cookies";
+import { AlertToko } from "../components/alert";
+import { TiShoppingCart } from "react-icons/ti";
+import { get } from "@/lib/bridge";
+import { toast } from "sonner";
 import Image from "next/image";
 import axios from "axios";
-import Navbar_Products from "../components/navbar_products/page";
-import { MdOutlineQrCodeScanner } from "react-icons/md";
+import CardSelect from "../components/card";
 import { BsPiggyBank } from "react-icons/bs";
 import CardSelectSize from "../components/size_selected";
-import { FiLoader } from "react-icons/fi";
+import Navbar_Products from "../components/navbar_products/page";
 
 const OrderPage = () => {
     const searchParams = useSearchParams();
