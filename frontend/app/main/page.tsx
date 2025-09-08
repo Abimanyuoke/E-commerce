@@ -9,7 +9,6 @@ import Banner from '../components/banner/page';
 import Subscribe from '../components/subscribe/page';
 import Testimonials from '../components/testimonials/page';
 import Footer from '../components/footer/page';
-import Popup from '../components/popup/page';
 import Navbar from '../components/navbar/page';
 
 
@@ -42,7 +41,6 @@ const Main = () => {
             <Products />
             <Testimonials />
             <Footer />
-            <Popup orderPopup={orderPopup} setOrderPopup={setOrderPopup} />
         </div>
     )
 };
